@@ -1,37 +1,42 @@
-<html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<head>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Police Information System</a>
-            </div>
-            <ul class="nav navbar-nav">
+@extends('layout.app')
+@section('title', 'Police Agent')
+@section('content')
 
-                <li><a href="/">Home</a></li>
-                <li><a href="/police_agent">Police Agent Management</a></li>
-                <li><a href="/">Person Of Interest Management</a></li>
-                <li><a href="/">Page 3</a></li>
-            </ul>
-        </div>
-    </nav>
-</head>
-<body>
-<a href="/police_agent/add">Add</a><br>
+    <form action="/police_agent/add">
+        <input type="submit" value="Add Member" />
+    </form>
+
+
+    <form action="/police_agent/">
+        <input >
+        <input type="submit" value="Search" />
+    </form>
+
 @if($agents != null)
+    <table class="table table-striped" style="padding:2% 2% 0 0;">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
 @foreach($agents as $agent)
-    Name:
-    {{$agent[\App\PoliceAgentModel::COL_NAME]}}
-    ID:
-    {{$agent[\App\PoliceAgentModel::COL_ID]}}
-    Position:
-    {{$agent[\App\PoliceAgentModel::COL_POS]}}
-<br>
+    <tr>
+        <th scope={{$agent[\App\PoliceAgentModel::COL_ID]}}>{{$agent[\App\PoliceAgentModel::COL_ID]}}</th>
+        <td>{{$agent[\App\PoliceAgentModel::COL_NAME]}}</td>
+        <td>{{$agent[\App\PoliceAgentModel::COL_POS]}}</td>
+        <td><a href="/police_agent/detail?police_id={{$agent[\App\PoliceAgentModel::COL_ID]}}">Detail</a> </td>
+
+    </tr>
 @endforeach
+        </tbody>
+    </table>
 @endif
+@endsection
 </body>
 </html>

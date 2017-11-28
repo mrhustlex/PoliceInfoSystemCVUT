@@ -1,4 +1,6 @@
-
+@extends('layout.app')
+@section('title', 'Add Police Agent')
+@section('content')
 <form action="/police_agent/add" method="post" enctype="multipart/form-data">
     Name:
     <input name="police_name"><br>
@@ -7,3 +9,4 @@ Position
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     <input type="submit"  name="submit" value="Add">
 </form>
+@endsection

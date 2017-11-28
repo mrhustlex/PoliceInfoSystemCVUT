@@ -28,6 +28,7 @@ Route::prefix('police_agent')->group(function() {
         return view('police_agent.add');
     });
     Route::post('/add', 'PoliceAgentController@addPoliceMember');
+    Route::get('/detail', 'PoliceAgentController@getPoliceInformation');
 //    Route::put('/add', 'PoliceAgentController@addPoliceMember');
     Route::delete('/delete', 'PoliceAgentController@deletePoliceMember');
 });

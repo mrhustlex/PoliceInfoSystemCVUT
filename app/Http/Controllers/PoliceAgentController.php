@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\PoliceAgentModel;
 use CreatePoliceAgentTable;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class PoliceAgentController extends Controller
 {
@@ -37,11 +38,25 @@ class PoliceAgentController extends Controller
     }
 
     public function getPoliceMember(){
-        $agents = PoliceAgentModel::all();
+        try{
+            $agents = PoliceAgentModel::all();
+        }catch (Exception $e){
+            echo $e->getMessage();
+        }
         if($agents == null)
             return "No agent is in this police office";
         else
-        return view('police_agent.index')->with('agents', $agents);
+            return view('police_agent.index')->with('agents', $agents);
+    }
+
+    public function getPoliceInformation(Request $request){
+        $police_id = $request->input(PoliceAgentModel::COL_ID);
+        if($police_id != null &&  $police_id > 0){
+            $agent = PoliceAgentModel::find($police_id);
+            return view('police_agent.personDetail')->with('agent', $agent);
+        }
+        return "No such User";
+
     }
 
 }
