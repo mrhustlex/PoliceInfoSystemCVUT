@@ -22,7 +22,7 @@ class PoliceAgentController extends Controller
         $agent->save();
         $agents = PoliceAgentModel::all();
         if($agents != null)
-            return view('police_agent.index');
+            return view('police_agent.index')->with('agents', $agents);
     }
     public function deletePoliceMember(Request $request){
         $police_id = $request->input(PoliceAgentModel::COL_ID);
