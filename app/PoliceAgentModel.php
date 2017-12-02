@@ -25,4 +25,5 @@ class PoliceAgentModel extends Model
     ];
     public $timestamps = false;
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at'];
 }

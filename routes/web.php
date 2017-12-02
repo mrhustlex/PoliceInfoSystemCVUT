@@ -13,16 +13,32 @@
 // definition of http get, post, put, delete: https://www.w3schools.com/tags/ref_httpmethods.asp
 
 Route::prefix('/')->group(function() {
-    //view
+    //unassigned view
     Route::get('/', function () {
         return view('index');
     });
 
-    Route::get('/police_agent', 'PoliceAgentController@getPoliceMember');
 });
 
+Route::prefix('case')->group(function() {
+    //index page of case
+    Route::get('/', 'CaseController@getCaseIndex');
+    //Case Api
+    Route::get('/add',function (){
+        return view('case.add');
+    });
+
+    Route::post('/add','CaseController@openCase');
+    Route::put('/close','CaseController@closeCase');
+    Route::get('/detail', 'CaseController@getCaseDetail');
+
+
+
+});
 
 Route::prefix('police_agent')->group(function() {
+   //index page of police agent
+    Route::get('/', 'PoliceAgentController@getPoliceMemberIndex');
     //police agent api
     Route::get('/add', function (){
         return view('police_agent.add');
