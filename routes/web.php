@@ -29,6 +29,7 @@ Route::prefix('case')->group(function() {
     });
     Route::post('/add','CaseController@openCase');
     Route::get('/close','CaseController@closeCase');
+    Route::get('/solve','CaseController@solveCase');
     Route::get('/detail', 'CaseController@getCaseDetail');
 });
 

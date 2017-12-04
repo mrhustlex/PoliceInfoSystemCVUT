@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 @show
 <html>
 <Title>Police - @yield('title')</Title>
@@ -26,10 +27,10 @@
                         <li><a href="/person_of_interest">Person Of Interest Management</a></li>
                         <li><a href="/case">Case Management</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
+                    {{--<ul class="nav navbar-nav navbar-right">--}}
+                        {{--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>--}}
+                        {{--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--}}
+                    {{--</ul>--}}
                 </div>
             </div>
         </nav>
@@ -40,10 +41,17 @@
 <section style="padding-left: 2vw;color: #5e5e5e;">
     @yield('content')
 </section>
+</body>
 <footer style="background: white;height: 10vh; position: relative;">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+        });
+    </script>
     @yield('footer')
 </footer>
-</body>
 </html>
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CaseModel;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,14 @@ use PHPUnit\Exception;
 
 class CaseController extends Controller
 {
-    public function getCaseIndex(){
+    public function getCaseIndex(Request $request){
         $title = $agents = null;
+        $solved = $request->input('solved', false);
         try{
-            $agents = CaseModel::all();
+            if($solved == false)
+                $agents = CaseModel::where('solved', "No")->orderBy(CaseModel::COL_ID, 'desc')->get();
+            else
+                $agents = CaseModel::where('solved', "Yes")->orderBy(CaseModel::COL_ID, 'desc')->get();
             if(CaseModel::first()!= null)
                 $title  =array_keys(CaseModel::first()->toArray());
             else
@@ -43,18 +48,23 @@ class CaseController extends Controller
         $oDAY = $request->input(CaseModel::COL_O_DAY);
         $description = $request->input(CaseModel::COL_DES);
 
+        $dtime = strtotime($crimeDate);
+        $time = date("Y-m-d H:i:s", $dtime);
+//        echo $time;
+        if($solved != 'No')
+            $closed = "yes";
         $agent = new CaseModel([
             CaseModel::COL_NAME => $name,
             CaseModel::COL_TYPE => $type,
             CaseModel::COL_SOLVED => $solved,
             CaseModel::COL_CLOSED => $closed,
-            CaseModel::COL_CRIME_DATE => $crimeDate,
             CaseModel::COL_DEP_ID => $depID,
             CaseModel::COL_O_DAY => $oDAY,
             CaseModel::COL_DES => $description,
         ]);
+        $agent[CaseModel::COL_CRIME_DATE] = $time;
         $agent->save();
-        $agents = CaseModel::all()->paginate(15);
+        $agents = CaseModel::orderBy(CaseModel::COL_ID, 'desc')->get();
         if(CaseModel::first()!= null)
             $title  =array_keys(CaseModel::first()->toArray());
         else
@@ -72,8 +82,13 @@ class CaseController extends Controller
 
     public function closeCase(Request $request){
         $case_id = $request->input('case_id');
+        $toSolve =  $request->input('solve', false);
         $case = CaseModel::find($case_id);
-        if($case != null){
+        if($toSolve == true && $case != null){
+            $case[CaseModel::COL_CLOSED] = "Yes";
+            $case[CaseModel::COL_SOLVED] = "Yes";
+            $case->save();
+        }else if($case != null){
             if($case[CaseModel::COL_CLOSED] != "Yes")
                 $case[CaseModel::COL_CLOSED] = "Yes";
             else
@@ -82,7 +97,7 @@ class CaseController extends Controller
         }else{
             return "case not found";
         }
-        $agents = CaseModel::all();
+        $agents = CaseModel::orderBy(CaseModel::COL_ID, 'desc')->get();
         if(CaseModel::first()!= null)
             $title  =array_keys(CaseModel::first()->toArray());
         else
@@ -92,11 +107,6 @@ class CaseController extends Controller
         else{
             return view('case.detail')->with('case', $case);
         }
-//        return view('case.index')
-//            ->with(['items'=> $agents,
-//                'columnName' => $title,
-//                'id' => CaseModel::COL_ID
-//            ]);
     }
 
     public function getCaseDetail(Request $request){

@@ -29,4 +29,5 @@ class CaseModel extends Model
         self::COL_O_DAY
     ];
     public $timestamps = false;
+    protected $dates = [self::COL_CRIME_DATE];
 }

@@ -1,3 +1,9 @@
+<?php
+    date_default_timezone_set("Europe/Prague");
+    $date = date("Y-m-d");
+    $time = date("H:i:s");
+    $default_time = $date.'T'.$time;
+?>
 @extends('layout.app')
 @section('title', 'Add Case')
 @section('content')
@@ -10,7 +16,7 @@
         @foreach($titles as $title)
             @if($title == \App\CaseModel::COL_CRIME_DATE || $title == \App\CaseModel::COL_O_DAY)
                    {{$title}} :<br>
-                       <input type="datetime-local" name={{$title}}><br><br>
+                       <input type="datetime-local" value={{$default_time}} name={{$title}} ><br><br>
                 @elseif($title == \App\CaseModel::COL_CLOSED ||$title == \App\CaseModel::COL_SOLVED)
                    {{$title}} :<br>
                    <select name={{$title}} id={{$title}}>
@@ -35,6 +41,7 @@
                @endif
            @endforeach
         <input type="hidden" name="_token" value="{{csrf_token()}}">
+           <br>
         <input type="submit"  name="submit" value="Add">
     </form>
 @endsection

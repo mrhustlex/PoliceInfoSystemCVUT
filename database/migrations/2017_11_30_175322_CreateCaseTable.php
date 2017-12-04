@@ -23,7 +23,7 @@ class CreateCaseTable extends Migration
             $table->string(CaseModel::COL_DES);
             $table->string(CaseModel::COL_CLOSED)->default(0);
             $table->string(CaseModel::COL_SOLVED)->default(0);
-            $table->string(CaseModel::COL_CRIME_DATE)->nullable();
+            $table->timestamp(CaseModel::COL_CRIME_DATE)->nullable();
             $table->timestamp(CaseModel::COL_O_DAY)->default(DB::raw('CURRENT_TIMESTAMP'));;
 
         });
