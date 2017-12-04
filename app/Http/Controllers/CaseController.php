@@ -71,10 +71,13 @@ class CaseController extends Controller
 
 
     public function closeCase(Request $request){
-        $case_id = $request->input(CaseModel::COL_ID);
+        $case_id = $request->input('case_id');
         $case = CaseModel::find($case_id);
         if($case != null){
-            $case[CaseModel::COL_CLOSED] = "Yes";
+            if($case[CaseModel::COL_CLOSED] != "Yes")
+                $case[CaseModel::COL_CLOSED] = "Yes";
+            else
+                $case[CaseModel::COL_CLOSED] = "No";
             $case->save();
         }else{
             return "case not found";
@@ -86,17 +89,19 @@ class CaseController extends Controller
             $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
         if($agents == null ||$title == null)
             return "No cases is in this police office";
-        else
-        return view('case.index')
-            ->with(['items'=> $agents,
-                'columnName' => $title,
-                'id' => CaseModel::COL_ID
-            ]);
+        else{
+            return view('case.detail')->with('case', $case);
+        }
+//        return view('case.index')
+//            ->with(['items'=> $agents,
+//                'columnName' => $title,
+//                'id' => CaseModel::COL_ID
+//            ]);
     }
 
     public function getCaseDetail(Request $request){
         $id = $request->input('case_id');
-        $case = CaseModel::find($id)->first();
+        $case = CaseModel::find($id);
         if($case != null)
             return view('case.detail')->with('case', $case);
         else

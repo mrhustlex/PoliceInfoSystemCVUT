@@ -27,13 +27,9 @@ Route::prefix('case')->group(function() {
     Route::get('/add',function (){
         return view('case.add');
     });
-
     Route::post('/add','CaseController@openCase');
-    Route::put('/close','CaseController@closeCase');
+    Route::get('/close','CaseController@closeCase');
     Route::get('/detail', 'CaseController@getCaseDetail');
-
-
-
 });
 
 Route::prefix('police_agent')->group(function() {
