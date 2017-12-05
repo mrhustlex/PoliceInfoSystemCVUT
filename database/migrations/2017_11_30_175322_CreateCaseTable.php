@@ -17,12 +17,12 @@ class CreateCaseTable extends Migration
         Schema::create(CaseModel::TABLE_NAME, function(Blueprint $table)
         {
             $table->increments(CaseModel::COL_ID);
-            $table->string(CaseModel::COL_DEP_ID);
-            $table->string(CaseModel::COL_NAME);
-            $table->string(CaseModel::COL_TYPE);
+            $table->integer(CaseModel::COL_DEP_ID);
+            $table->string(CaseModel::COL_NAME, 50);
+            $table->string(CaseModel::COL_TYPE, 20);
             $table->string(CaseModel::COL_DES);
-            $table->string(CaseModel::COL_CLOSED)->default(0);
-            $table->string(CaseModel::COL_SOLVED)->default(0);
+            $table->boolean(CaseModel::COL_CLOSED)->default(0);
+            $table->boolean(CaseModel::COL_SOLVED)->default(0);
             $table->timestamp(CaseModel::COL_CRIME_DATE)->nullable();
             $table->timestamp(CaseModel::COL_O_DAY)->default(DB::raw('CURRENT_TIMESTAMP'));;
 

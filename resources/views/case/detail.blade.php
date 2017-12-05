@@ -8,6 +8,7 @@ $solved = $case[CaseModel::COL_SOLVED]==0? false:true;
 $caseName = $case[CaseModel::COL_NAME];
 $pageTitle = 'Cases '.$id.' - '. $caseName;
 $buttonName = ($case[CaseModel::COL_CLOSED] == 0)? "Close_the_case":"Open the case";
+
 ?>
 
 @extends('layout.app')
@@ -21,8 +22,13 @@ $buttonName = ($case[CaseModel::COL_CLOSED] == 0)? "Close_the_case":"Open the ca
     @endif
     <br><br>
 @foreach($titles as $title)
+    @if($title == \App\CaseModel::COL_SOLVED || $title == \App\CaseModel::COL_CLOSED)
+        {{$title}}:<br>
+        {{($case[$title]==0)?"No": "Yes"}}
+    @else
     {{$title}}:<br>
     {{$case[$title]}}
+    @endif
     <br><br>
 @endforeach
 
