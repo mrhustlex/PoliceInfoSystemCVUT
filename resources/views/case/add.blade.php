@@ -20,8 +20,8 @@
                 @elseif($title == \App\CaseModel::COL_CLOSED ||$title == \App\CaseModel::COL_SOLVED)
                    {{$title}} :<br>
                    <select name={{$title}} id={{$title}}>
-                       <option>Yes</option>
-                       <option selected>No</option>
+                       <option value="1">Yes</option>
+                       <option value="0" selected>No</option>
                    </select>
                 <br><br>
                 @elseif($title == \App\CaseModel::COL_TYPE)

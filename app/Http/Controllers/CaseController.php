@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\caseHandler;
 use App\CaseModel;
+use App\Http\ICaseHandler;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Exception;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CaseController extends Controller
 {
     public function getCaseIndex(Request $request){
-        $title = $agents = null;
-        $solved = $request->input('solved', false);
-        try{
-            if($solved == false)
-                $agents = CaseModel::where('solved', "No")->orderBy(CaseModel::COL_ID, 'desc')->get();
-            else
-                $agents = CaseModel::where('solved', "Yes")->orderBy(CaseModel::COL_ID, 'desc')->get();
-            if(CaseModel::first()!= null)
-                $title  =array_keys(CaseModel::first()->toArray());
-            else
-                $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
-        }catch (Exception $e){
-            echo $e->getMessage();
-        }
-        if($agents == null ||$title == null)
+        $sortBy = $request->input("sort", CaseModel::COL_ID);
+        $order = $request->input("order", 'desc');
+        $type =  $request->input("type", CaseHandler::UNSOLVED_CASE);
+        $caseHandler = new caseHandler();
+        $cases = $caseHandler->getCaseList($sortBy, $order, $type);
+        if($cases == null)
             return "No cases is in this police office";
+        if(CaseModel::first()!= null)
+            $title  =array_keys(CaseModel::first()->toArray());
         else
+            $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
+        if($title == null)
+            return "No such database Table";
+
             return view('case.index')
-                ->with(['items'=> $agents,
+                ->with(['items'=> $cases,
                     'columnName' => $title,
                     'id' => CaseModel::COL_ID
                 ]);
@@ -39,83 +39,76 @@ class CaseController extends Controller
 
 
     public function openCase(Request $request){
+        if($request == null)
+            return null;
         $name = $request->input(CaseModel::COL_NAME);
         $type = $request->input(CaseModel::COL_TYPE, 'Normal');
-        $solved = $request->input(CaseModel::COL_SOLVED, 'No');
-        $closed = $request->input(CaseModel::COL_CLOSED, "No");
+        $solved = $request->input(CaseModel::COL_SOLVED, 0);
+        $closed = $request->input(CaseModel::COL_CLOSED, 0);
         $crimeDate = $request->input(CaseModel::COL_CRIME_DATE);
         $depID = $request->input(CaseModel::COL_DEP_ID, 1);
         $oDAY = $request->input(CaseModel::COL_O_DAY);
         $description = $request->input(CaseModel::COL_DES);
-
         $dtime = strtotime($crimeDate);
         $time = date("Y-m-d H:i:s", $dtime);
-//        echo $time;
-        if($solved != 'No')
-            $closed = "yes";
-        $agent = new CaseModel([
-            CaseModel::COL_NAME => $name,
-            CaseModel::COL_TYPE => $type,
-            CaseModel::COL_SOLVED => $solved,
-            CaseModel::COL_CLOSED => $closed,
-            CaseModel::COL_DEP_ID => $depID,
-            CaseModel::COL_O_DAY => $oDAY,
-            CaseModel::COL_DES => $description,
-        ]);
-        $agent[CaseModel::COL_CRIME_DATE] = $time;
-        $agent->save();
-        $agents = CaseModel::orderBy(CaseModel::COL_ID, 'desc')->get();
-        if(CaseModel::first()!= null)
-            $title  =array_keys(CaseModel::first()->toArray());
-        else
-            $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
-        if($agents == null ||$title == null)
-            return "No cases is in this police office";
-        else
-            return view('case.index')
-                ->with(['items'=> $agents,
-                    'columnName' => $title,
-                    'id' => CaseModel::COL_ID
-                ]);
+
+        if($name == null||$type== null|| $solved == null || $closed==null
+            || $depID == null||$description==null ){
+            return $request;
+        }
+
+
+        $caseHandler = new caseHandler();
+        $caseAdded = $caseHandler->addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+        if($caseAdded == null)
+            return redirect()->back()->with('message', "Failed to add case");
+        else{
+            echo "Added case successfully";
+            return self::getCaseIndex($request);
+        }
     }
 
+    public function reopenClosedCase(Request $request){
+        $id = $request->input(CaseModel::COL_ID);
+        $caseHandler = new caseHandler();
+        $caseReopened = $caseHandler->closeOrOpenCase($id, false);
+        if($caseReopened == null){
+            return $request;
+//            return redirect()->back()->with('message', "Failed to close case");
+        }
+        return view('case.detail')->with('case', $caseReopened);
+    }
 
     public function closeCase(Request $request){
-        $case_id = $request->input('case_id');
-        $toSolve =  $request->input('solve', false);
-        $case = CaseModel::find($case_id);
-        if($toSolve == true && $case != null){
-            $case[CaseModel::COL_CLOSED] = "Yes";
-            $case[CaseModel::COL_SOLVED] = "Yes";
-            $case->save();
-        }else if($case != null){
-            if($case[CaseModel::COL_CLOSED] != "Yes")
-                $case[CaseModel::COL_CLOSED] = "Yes";
-            else
-                $case[CaseModel::COL_CLOSED] = "No";
-            $case->save();
-        }else{
-            return "case not found";
+        $id = $request->input(CaseModel::COL_ID);
+        $caseHandler = new caseHandler();
+        $caseClosed = $caseHandler->closeOrOpenCase($id, true);
+        if($caseClosed == null){
+            return redirect()->back()->with('message', "Failed to close case");
         }
-        $agents = CaseModel::orderBy(CaseModel::COL_ID, 'desc')->get();
-        if(CaseModel::first()!= null)
-            $title  =array_keys(CaseModel::first()->toArray());
-        else
-            $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
-        if($agents == null ||$title == null)
-            return "No cases is in this police office";
-        else{
-            return view('case.detail')->with('case', $case);
+        return view('case.detail')->with('case', $caseClosed);
+
+    }
+    public function solveCase(Request $request){
+        $id = $request->input(CaseModel::COL_ID);
+        $caseHandler = new caseHandler();
+        $caseSolved = $caseHandler->solveCase($id);
+        if($caseSolved == null){
+            return redirect()->back()->with('message', "Failed to solve case");
         }
+        return view('case.detail')->with('case', $caseSolved);
+
     }
 
     public function getCaseDetail(Request $request){
-        $id = $request->input('case_id');
-        $case = CaseModel::find($id);
-        if($case != null)
-            return view('case.detail')->with('case', $case);
-        else
-            return "Case Not found";
+        if($request == null)
+            return redirect()->back()->with('message', "Failed to get case");
+        $caseID = $request->input(CaseModel::COL_ID);
+        $caseHandler = new caseHandler();
+        $case = $caseHandler->getCase($caseID);
+        if($case == null)
+            return redirect()->back()->with('message', "Failed to get case");
+        return view('case.detail')->with('case', $case);
     }
 
 }
