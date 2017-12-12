@@ -9,7 +9,7 @@
 namespace App\Http;
 
 
-interface CaseDaoHandler
+interface ICaseDaoHandler
 {
     public function getCaseRow($sortBy, $order, $type, $val);
 

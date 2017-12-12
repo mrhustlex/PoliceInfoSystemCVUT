@@ -1,7 +1,7 @@
 <?php
 namespace App\Http;
 use App\CaseModel;
-use App\Http\CaseDaoHandler;
+use App\Http\ICaseDaoHandler;
 
 /**
  * Created by PhpStorm.
@@ -9,7 +9,7 @@ use App\Http\CaseDaoHandler;
  * Date: 12/12/2017
  * Time: 9:50 AM
  */
-class CaseDAO implements CaseDaoHandler
+class CaseDAOHandler implements ICaseDaoHandler
 {
     private $caseModel;
     const UNSOLVED_CASE = 0;

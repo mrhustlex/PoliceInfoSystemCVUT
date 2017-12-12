@@ -18,7 +18,7 @@ class caseHandler implements ICaseHandler
     private $caseDAO;
 
 
-    function __construct(CaseDaoHandler $caseDAO)
+    function __construct(ICaseDaoHandler $caseDAO)
     {
         $this->caseDAO = $caseDAO;
     }
@@ -74,9 +74,9 @@ class caseHandler implements ICaseHandler
         return $case;
 	}
 
-	public function getCaseList($sortBy, $order, $type = CaseDAO::UNSOLVED_CASE)
+	public function getCaseList($sortBy, $order, $type = CaseDAOHandler::UNSOLVED_CASE)
 	{
-        $val = ($type == CaseDAO::UNSOLVED_CASE)? 0: 1;
+        $val = ($type == CaseDAOHandler::UNSOLVED_CASE)? 0: 1;
         $cases = $this->caseDAO->getCaseRow($sortBy, $order, $type, $val);
         if($cases == null)
             return null;

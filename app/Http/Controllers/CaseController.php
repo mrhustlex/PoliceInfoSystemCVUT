@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\CaseDAO;
+use App\Http\CaseDAOHandler;
 use App\Http\caseHandler;
 use App\CaseModel;
 use App\Http\ICaseHandler;
@@ -31,7 +31,7 @@ class CaseController extends Controller
     public function getCaseIndex(Request $request){
         $sortBy = $request->input("sort", CaseModel::COL_ID);
         $order = $request->input("order", 'desc');
-        $type =  $request->input("type", CaseDAO::UNSOLVED_CASE);
+        $type =  $request->input("type", CaseDAOHandler::UNSOLVED_CASE);
 //        $caseHandler = new caseHandler();
         $cases = $this->caseHandler->getCaseList($sortBy, $order, $type);
         if($cases == null)
