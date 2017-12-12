@@ -23,7 +23,7 @@ class CaseController extends Controller
      * CaseController constructor.
      * @param $caseHandler
      */
-    public function __construct(CaseHandler $caseHandler)
+    public function __construct(ICaseHandler $caseHandler)
     {
         $this->caseHandler = $caseHandler;
     }

@@ -18,7 +18,7 @@ class caseHandler implements ICaseHandler
     private $caseDAO;
 
 
-    function __construct(CaseDAO $caseDAO)
+    function __construct(CaseDaoHandler $caseDAO)
     {
         $this->caseDAO = $caseDAO;
     }
