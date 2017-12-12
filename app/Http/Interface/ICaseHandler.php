@@ -22,7 +22,8 @@ interface ICaseHandler
 
 	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
 
-	public function closeOrOpenCase($id, bool $isClose);
+    public function openCase($id);
+    public function closeCase($id);
 
     public function solveCase($id);
 

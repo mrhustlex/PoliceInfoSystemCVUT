@@ -4,8 +4,8 @@ use App\Http\caseHandler;
 
 $linkCase = [
     "/case/add" =>"Add Case",
-    "/case?type=".caseHandler::UNSOLVED_CASE=>"UNSOLVED_CASE",
-    "/case?type=".caseHandler::SOLVED_CASE=>"SOLVED_CASE",
+    "/case?type=".\App\Http\CaseDAO::UNSOLVED_CASE=>"UNSOLVED_CASE",
+    "/case?type=".\App\Http\CaseDAO::SOLVED_CASE=>"SOLVED_CASE",
     ]
 ?>
 @extends('layout.app')

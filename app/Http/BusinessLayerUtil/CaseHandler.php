@@ -15,20 +15,16 @@ use Illuminate\Http\Request;
  */
 class caseHandler implements ICaseHandler
 {
-    const UNSOLVED_CASE = 0;
-    const SOLVED_CASE = self::UNSOLVED_CASE + 1;
-    const CLOSE_CASE = self::SOLVED_CASE + 1;
-    private static $typeArr = [
-        self::UNSOLVED_CASE => CaseModel::COL_SOLVED,
-        self::SOLVED_CASE => CaseModel::COL_SOLVED,
-        self::CLOSE_CASE => CaseModel::COL_CLOSED,
-    ];
+    private $caseDAO;
 
-	function __construct()
-	{
-	}
 
-	function __destruct()
+    function __construct(CaseDAO $caseDAO)
+    {
+        $this->caseDAO = $caseDAO;
+    }
+
+
+    function __destruct()
 	{
 	}
 
@@ -72,39 +68,45 @@ class caseHandler implements ICaseHandler
 	 */
 	public function getCase(int $id)
 	{
-        $case = CaseModel::find($id);
+        $case = $this->caseDAO->find($id);
         if($case == Null)
             return Null;
         return $case;
 	}
 
-	public function getCaseList($sortBy, $order, $type = self::UNSOLVED_CASE)
+	public function getCaseList($sortBy, $order, $type = CaseDAO::UNSOLVED_CASE)
 	{
-        $val = ($type == self::UNSOLVED_CASE)? 0: 1;
-        $cases = CaseModel::where(self::$typeArr[$type], $val)->orderBy($sortBy, $order)->get();
+        $val = ($type == CaseDAO::UNSOLVED_CASE)? 0: 1;
+        $cases = $this->caseDAO->getCaseRow($sortBy, $order, $type, $val);
         if($cases == null)
             return null;
         return $cases;
 
 	}
 
-    public function closeOrOpenCase($id, bool $isClose)
+    public function closeCase($id)
     {
-        $case = CaseModel::find($id);
+        $case = $this->caseDAO->find($id);
         if($case == null)
             return null;
-        if($isClose)
-            $case[CaseModel::COL_CLOSED] = 1;
-        else
-            $case[CaseModel::COL_CLOSED] = 0;
+        $case[CaseModel::COL_CLOSED] = 1;
+        $case->save();
+        return $case;
+    }
 
+    public function openCase($id)
+    {
+        $case = $this->caseDAO->find($id);
+        if($case == null)
+            return null;
+        $case[CaseModel::COL_CLOSED] = 0;
         $case->save();
         return $case;
     }
 
     public function solveCase($id)
     {
-        $case = CaseModel::find($id);
+        $case = $this->caseDAO->find($id);
         if($case == null)
             return null;
         $case[CaseModel::COL_CLOSED] = 1;

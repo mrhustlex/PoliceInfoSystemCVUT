@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\CaseDAO;
 use App\Http\caseHandler;
 use App\CaseModel;
 use App\Http\ICaseHandler;
@@ -15,12 +16,24 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class CaseController extends Controller
 {
+
+    private $caseHandler;
+
+    /**
+     * CaseController constructor.
+     * @param $caseHandler
+     */
+    public function __construct(CaseHandler $caseHandler)
+    {
+        $this->caseHandler = $caseHandler;
+    }
+
     public function getCaseIndex(Request $request){
         $sortBy = $request->input("sort", CaseModel::COL_ID);
         $order = $request->input("order", 'desc');
-        $type =  $request->input("type", CaseHandler::UNSOLVED_CASE);
-        $caseHandler = new caseHandler();
-        $cases = $caseHandler->getCaseList($sortBy, $order, $type);
+        $type =  $request->input("type", CaseDAO::UNSOLVED_CASE);
+//        $caseHandler = new caseHandler();
+        $cases = $this->caseHandler->getCaseList($sortBy, $order, $type);
         if($cases == null)
             return "No cases is in this police office";
         if(CaseModel::first()!= null)
@@ -58,8 +71,8 @@ class CaseController extends Controller
         }
 
 
-        $caseHandler = new caseHandler();
-        $caseAdded = $caseHandler->addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+//        $caseHandler = new caseHandler();
+        $caseAdded = $this->caseHandler->addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
         if($caseAdded == null)
             return redirect()->back()->with('message', "Failed to add case");
         else{
@@ -70,8 +83,8 @@ class CaseController extends Controller
 
     public function reopenClosedCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-        $caseHandler = new caseHandler();
-        $caseReopened = $caseHandler->closeOrOpenCase($id, false);
+//        $caseHandler = new caseHandler();
+        $caseReopened = $this->caseHandler->openCase($id);
         if($caseReopened == null){
             return $request;
 //            return redirect()->back()->with('message', "Failed to close case");
@@ -81,8 +94,8 @@ class CaseController extends Controller
 
     public function closeCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-        $caseHandler = new caseHandler();
-        $caseClosed = $caseHandler->closeOrOpenCase($id, true);
+//        $caseHandler = new caseHandler();
+        $caseClosed = $this->caseHandler->closeCase($id, true);
         if($caseClosed == null){
             return redirect()->back()->with('message', "Failed to close case");
         }
@@ -91,8 +104,8 @@ class CaseController extends Controller
     }
     public function solveCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-        $caseHandler = new caseHandler();
-        $caseSolved = $caseHandler->solveCase($id);
+//        $caseHandler = new caseHandler();
+        $caseSolved = $this->caseHandler->solveCase($id);
         if($caseSolved == null){
             return redirect()->back()->with('message', "Failed to solve case");
         }
@@ -104,8 +117,8 @@ class CaseController extends Controller
         if($request == null)
             return redirect()->back()->with('message', "Failed to get case");
         $caseID = $request->input(CaseModel::COL_ID);
-        $caseHandler = new caseHandler();
-        $case = $caseHandler->getCase($caseID);
+//        $caseHandler = new caseHandler();
+        $case = $this->caseHandler->getCase($caseID);
         if($case == null)
             return redirect()->back()->with('message', "Failed to get case");
         return view('case.detail')->with('case', $case);
