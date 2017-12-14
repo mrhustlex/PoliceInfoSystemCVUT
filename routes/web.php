@@ -46,3 +46,6 @@ Route::prefix('police_agent')->group(function() {
 //    Route::put('/add', 'PoliceAgentController@addPoliceMember');
     Route::delete('/delete', 'PoliceAgentController@deletePoliceMember');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
