@@ -12,4 +12,25 @@ namespace App\Http;
 class POIDAOHandler implements IPOIDaoHandler
 {
 
+    /**
+     * POIDAOHandler constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    public function getPersonOfInterest($sortBy, $order, $type, $val)
+    {
+        // TODO: Implement getPersonOfInterest() method.
+    }
+
+    public function all()
+    {
+        // TODO: Implement all() method.
+    }
+
+    public function find($id)
+    {
+        // TODO: Implement find() method.
+    }
 }

@@ -11,6 +11,7 @@ namespace App\Http;
 
 interface ICaseDaoHandler
 {
+
     public function getCaseRow($sortBy, $order, $type, $val);
     public function all();
     public function find($id);

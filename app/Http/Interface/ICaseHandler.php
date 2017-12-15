@@ -13,27 +13,27 @@ use Illuminate\Http\Request;
  */
 interface ICaseHandler
 {
+    /**
+     *
+     * @param id
+     */
+    public function getCase(int $id);
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public function addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+    public function getCaseList($sortBy, $order, $type);
 
-	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+
+    /**
+     *
+     * @param id
+     */
+    public function addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+
+    public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
 
     public function openCase($id);
     public function closeCase($id);
 
     public function solveCase($id);
-
-    /**
-	 * 
-	 * @param id
-	 */
-	public function getCase(int $id);
-
-	public function getCaseList($sortBy, $order, $type);
 
 }
 ?>

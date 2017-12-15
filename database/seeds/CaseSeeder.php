@@ -21,6 +21,6 @@ class caseSeeder extends Seeder
     }
 
 
-    }
+
 
 }
