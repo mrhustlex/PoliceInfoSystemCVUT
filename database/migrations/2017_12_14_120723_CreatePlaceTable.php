@@ -7,11 +7,12 @@ use Illuminate\Database\Migrations\Migration;
 class CreatePlaceTable extends Migration
 {
 
-    const TABLE_NAME = "case";
-    const COL_ID = "CaseID";
-    const COL_DEP_ID = "DepartmentID";
-    const COL_NAME = "Name";
-    const COL_TYPE = "Type";
+    const TABLE_NAME = "Place";
+    const COL_ID = "place_id";
+    const COL_NAME= "name";
+    const COL_ADDRESS= "address";
+    const COL_DES= "description";
+
     /**
      * Run the migrations.
      *
@@ -19,7 +20,13 @@ class CreatePlaceTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create(self::TABLE_NAME, function(Blueprint $table)
+        {
+            $table->increments(self::COL_ID);
+            $table->string(self::COL_NAME, 50);
+            $table->string(self::COL_ADDRESS, 50);
+            $table->string(self::COL_DES);
+        });
     }
 
     /**
@@ -29,6 +36,6 @@ class CreatePlaceTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists(self::TABLE_NAME);
     }
 }
