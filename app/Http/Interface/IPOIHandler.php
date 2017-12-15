@@ -14,5 +14,5 @@ interface IPOIHandler
     public function getPersonOfInterest();
     public function addPersonOfInterest();
     public function deletePersonOfInterest($id);
-    public function modifyPersonOfInterest($id);
+//    public function modifyPersonOfInterest($id);
 }

@@ -14,7 +14,7 @@ interface IPoliceAgentHandler
     public function getPoliceAgentDetail($id);
     public function addPoliceAgent();
     public function deletePoliceAgent($id);
-    public function modifyPoliceAgent();
+//    public function modifyPoliceAgent($id);
     public function getPoliceAgentList($sortBy, $order, $type);
 
 

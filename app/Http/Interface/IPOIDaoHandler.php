@@ -14,4 +14,6 @@ interface IPOIDaoHandler
     public function getPersonOfInterest($sortBy, $order, $type, $val);
     public function all();
     public function find($id);
+    public function addTestimony($id);
+
 }

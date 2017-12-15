@@ -33,4 +33,9 @@ class POIDAOHandler implements IPOIDaoHandler
     {
         // TODO: Implement find() method.
     }
+
+    public function addTestimony($id)
+    {
+        // TODO: Implement addTestimony() method.
+    }
 }

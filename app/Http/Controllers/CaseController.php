@@ -94,7 +94,6 @@ class CaseController extends Controller
 
     public function closeCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-//        $caseHandler = new caseHandler();
         $caseClosed = $this->caseHandler->closeCase($id, true);
         if($caseClosed == null){
             return redirect()->back()->with('message', "Failed to close case");
@@ -104,7 +103,6 @@ class CaseController extends Controller
     }
     public function solveCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-//        $caseHandler = new caseHandler();
         $caseSolved = $this->caseHandler->solveCase($id);
         if($caseSolved == null){
             return redirect()->back()->with('message', "Failed to solve case");
@@ -117,7 +115,6 @@ class CaseController extends Controller
         if($request == null)
             return redirect()->back()->with('message', "Failed to get case");
         $caseID = $request->input(CaseModel::COL_ID);
-//        $caseHandler = new caseHandler();
         $case = $this->caseHandler->getCase($caseID);
         if($case == null)
             return redirect()->back()->with('message', "Failed to get case");

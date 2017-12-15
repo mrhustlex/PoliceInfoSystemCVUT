@@ -20,15 +20,13 @@ interface ICaseHandler
     public function getCase(int $id);
 
     public function getCaseList($sortBy, $order, $type);
-
-
     /**
      *
      * @param id
      */
     public function addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
 
-    public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
+//    public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
 
     public function openCase($id);
     public function closeCase($id);

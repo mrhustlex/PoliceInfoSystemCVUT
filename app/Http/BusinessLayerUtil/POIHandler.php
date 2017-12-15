@@ -9,28 +9,35 @@
 namespace App\Http;
 
 
-class POIHandler implements  IPOIDaoHandler
+class POIHandler implements  IPOIHandler
 {
+    private $iPOIDaoHandler;
 
     /**
      * POIHandler constructor.
      */
-    public function __construct(IPOIHandler $i)
+    public function __construct(IPOIDaoHandler $iPOIDaoHandler)
     {
+        $this->$iPOIDaoHandler = $iPOIDaoHandler;
     }
 
-    public function getPersonOfInterest($sortBy, $order, $type, $val)
+    public function getPersonOfInterest()
     {
         // TODO: Implement getPersonOfInterest() method.
     }
 
-    public function all()
+    public function addPersonOfInterest()
     {
-        // TODO: Implement all() method.
+        // TODO: Implement addPersonOfInterest() method.
     }
 
-    public function find($id)
+    public function deletePersonOfInterest($id)
     {
-        // TODO: Implement find() method.
+        // TODO: Implement deletePersonOfInterest() method.
+    }
+
+    public function modifyPersonOfInterest($id)
+    {
+        // TODO: Implement modifyPersonOfInterest() method.
     }
 }

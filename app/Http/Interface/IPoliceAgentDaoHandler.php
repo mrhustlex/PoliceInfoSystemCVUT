@@ -11,9 +11,13 @@ namespace App\Http;
 
 interface IPoliceAgentDaoHandler
 {
-    public function getPoliceRow($sortBy, $order, $type, $val);
+    public function getPoliceRow($sortBy, $order, $type);
     public function all();
-    public function find($id);
+//    public function find($id);
+    public function addPolice();
+    public function deletePolice($id);
+//    public function modifyPolice($id);
+    public function getPolice($id);
 
 
 }

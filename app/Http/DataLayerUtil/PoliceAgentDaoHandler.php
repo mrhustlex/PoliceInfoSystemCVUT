@@ -28,13 +28,30 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $this->police_model->all();
     }
 
-    public function find($id)
-    {
-        return $this->police_model->find($id);
-    }
 
-    public function getPoliceRow($sortBy, $order, $type, $val)
+    public function getPoliceRow($sortBy, $order, $type)
     {
         // TODO: Implement getPoliceRow() method.
+    }
+
+    public function addPolice($id)
+    {
+        // TODO: Implement addPolice() method.
+    }
+
+    public function deletePolice($id)
+    {
+        // TODO: Implement deletePolice() method.
+    }
+
+    public function modifyPolice($id)
+    {
+        // TODO: Implement modifyPolice() method.
+    }
+
+    public function getPolice($id)
+    {
+        // TODO: Implement getPolice() method.
+        return $this->police_model->find($id);
     }
 }

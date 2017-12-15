@@ -45,11 +45,11 @@ class caseHandler implements ICaseHandler
         else
             return $case;
 	}
-
-	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
-	{
-	    return true;
-	}
+//
+//	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
+//	{
+//	    return true;
+//	}
 
 	/**
 	 * 
