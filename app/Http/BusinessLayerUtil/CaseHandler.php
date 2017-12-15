@@ -39,18 +39,7 @@ class caseHandler implements ICaseHandler
 
         if($solved == '1')
             $closed = 1;
-
-        $case = new CaseModel([
-            CaseModel::COL_NAME => $name,
-            CaseModel::COL_TYPE => $type,
-            CaseModel::COL_SOLVED => $solved,
-            CaseModel::COL_CLOSED => $closed,
-            CaseModel::COL_DEP_ID => $depID,
-            CaseModel::COL_O_DAY => $oDAY,
-            CaseModel::COL_DES => $description,
-        ]);
-        $case[CaseModel::COL_CRIME_DATE] = $time;
-        $case->save();
+        $case = $this->caseDAO->addCaseIndataBase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
         if($case == null)
             return null;
         else
@@ -86,32 +75,25 @@ class caseHandler implements ICaseHandler
 
     public function closeCase($id)
     {
-        $case = $this->caseDAO->find($id);
+        $case = $this->caseDAO->setCaseClose($id);
         if($case == null)
             return null;
-        $case[CaseModel::COL_CLOSED] = 1;
-        $case->save();
         return $case;
     }
 
     public function openCase($id)
     {
-        $case = $this->caseDAO->find($id);
+        $case = $this->caseDAO->setCaseOpen($id);
         if($case == null)
             return null;
-        $case[CaseModel::COL_CLOSED] = 0;
-        $case->save();
         return $case;
     }
 
     public function solveCase($id)
     {
-        $case = $this->caseDAO->find($id);
+        $case = $this->caseDAO->setCaseSolved($id);
         if($case == null)
             return null;
-        $case[CaseModel::COL_CLOSED] = 1;
-        $case[CaseModel::COL_SOLVED] = 1;
-        $case->save();
         return $case;
     }
 }

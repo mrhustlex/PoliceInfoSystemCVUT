@@ -48,4 +48,58 @@ class CaseDAOHandler implements ICaseDaoHandler
         return $this->caseModel->find($id);
 
     }
+
+    public function addCaseIndataBase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
+    {
+        // TODO: Implement addCaseIndataBase() method.
+        $case = new CaseModel([
+            CaseModel::COL_NAME => $name,
+            CaseModel::COL_TYPE => $type,
+            CaseModel::COL_SOLVED => $solved,
+            CaseModel::COL_CLOSED => $closed,
+            CaseModel::COL_DEP_ID => $depID,
+            CaseModel::COL_O_DAY => $oDAY,
+            CaseModel::COL_DES => $description,
+        ]);
+        $case[CaseModel::COL_CRIME_DATE] = $time;
+        $case->save();
+        if($case == null)
+            return null;
+        else
+            return $case;
+    }
+
+    public function setCaseClose($id)
+    {
+        $case = $this->caseModel->find($id);
+        if($case == null)
+            return null;
+        $case[CaseModel::COL_CLOSED] = 1;
+        $case->save();
+        return $case;
+        // TODO: Implement setCaseClose() method.
+    }
+
+    public function setCaseOpen($id)
+    {
+        // TODO: Implement setCaseOpen() method.
+        $case = $this->caseModel->find($id);
+        if($case == null)
+            return null;
+        $case[CaseModel::COL_CLOSED] = 0;
+        $case->save();
+        return $case;
+    }
+
+    public function setCaseSolved($id)
+    {
+        // TODO: Implement setCaseSolved() method.
+        $case = $this->caseModel->find($id);
+        if($case == null)
+            return null;
+        $case[CaseModel::COL_CLOSED] = 1;
+        $case[CaseModel::COL_SOLVED] = 1;
+        $case->save();
+        return $case;
+    }
 }
