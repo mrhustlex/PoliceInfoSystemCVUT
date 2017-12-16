@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\CaseDAOHandler;
 use App\Http\caseHandler;
-use App\CaseModel;
 use App\Http\ICaseHandler;
+use App\Model\CaseModel;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Contracts\Logging\Log;
@@ -94,7 +94,7 @@ class CaseController extends Controller
 
     public function closeCase(Request $request){
         $id = $request->input(CaseModel::COL_ID);
-        $caseClosed = $this->caseHandler->closeCase($id, true);
+        $caseClosed = $this->caseHandler->closeCase($id);
         if($caseClosed == null){
             return redirect()->back()->with('message', "Failed to close case");
         }

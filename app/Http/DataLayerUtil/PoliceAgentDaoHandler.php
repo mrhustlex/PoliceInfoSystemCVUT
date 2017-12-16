@@ -9,7 +9,7 @@
 namespace App\Http;
 
 
-use App\PoliceAgentModel;
+use App\Model\PoliceAgentModel;
 
 class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
 {
@@ -34,7 +34,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         // TODO: Implement getPoliceRow() method.
     }
 
-    public function addPolice($id)
+    public function addPolice()
     {
         // TODO: Implement addPolice() method.
     }

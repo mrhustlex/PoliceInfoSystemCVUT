@@ -1,7 +1,6 @@
 <?php
 
-namespace App;
-
+namespace App\Model;
 use CreatePoliceAgentTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,4 +25,5 @@ class PoliceAgentModel extends Model
     public $timestamps = false;
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
+
 }

@@ -17,7 +17,7 @@ class caseHandler implements ICaseHandler
     private $caseDAO;
 
 
-    function __construct(ICaseHandler $caseDAO)
+    function __construct(ICaseDaoHandler $caseDAO)
     {
         $this->caseDAO = $caseDAO;
     }
@@ -44,10 +44,10 @@ class caseHandler implements ICaseHandler
             return $case;
 	}
 
-	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
-	{
-	    return true;
-	}
+//	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
+//	{
+//	    return true;
+//	}
 
 	/**
 	 * 

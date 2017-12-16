@@ -1,7 +1,7 @@
 <?php
 namespace App\Http;
-use App\CaseModel;
 use App\Http\ICaseDaoHandler;
+use App\Model\CaseModel;
 
 /**
  * Created by PhpStorm.
