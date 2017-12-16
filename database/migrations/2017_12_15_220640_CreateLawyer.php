@@ -4,16 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCrimesceneinvestigatorTable extends Migration
+
+
+class CreateLawyer extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
+
+    const TABLE_NAME = "lawyer";
+    const COL_ID = "lawyerId";
+
     public function up()
     {
-        //
+        Schema::create(self::TABLE_NAME, function(Blueprint $table)
+        {
+            $table->increments(self::COL_ID);
+
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +34,6 @@ class CreateCrimesceneinvestigatorTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists(self::TABLE_NAME);
     }
 }

@@ -3,7 +3,6 @@
 
 namespace App\Http;
 use App\CaseModel;
-use App\Http\ICaseHandler;
 use Illuminate\Http\Request;
 
 
@@ -18,7 +17,7 @@ class caseHandler implements ICaseHandler
     private $caseDAO;
 
 
-    function __construct(ICaseDaoHandler $caseDAO)
+    function __construct(ICaseHandler $caseDAO)
     {
         $this->caseDAO = $caseDAO;
     }
@@ -36,7 +35,6 @@ class caseHandler implements ICaseHandler
 	 */
 	public function addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
 	{
-
         if($solved == '1')
             $closed = 1;
         $case = $this->caseDAO->addCaseIndataBase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
@@ -45,11 +43,11 @@ class caseHandler implements ICaseHandler
         else
             return $case;
 	}
-//
-//	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
-//	{
-//	    return true;
-//	}
+
+	public function editCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time)
+	{
+	    return true;
+	}
 
 	/**
 	 * 
