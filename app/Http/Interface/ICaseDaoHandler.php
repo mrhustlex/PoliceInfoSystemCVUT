@@ -20,4 +20,6 @@ interface ICaseDaoHandler
     public function setCaseOpen($id);
     public function setCaseSolved($id);
 
+    public function getRowTitle();
+
 }

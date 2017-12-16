@@ -11,8 +11,11 @@ namespace App\Http;
 
 interface IPOIHandler
 {
-    public function getPersonOfInterest();
+    public function getPersonOfInterest($id);
     public function addPersonOfInterest();
     public function deletePersonOfInterest($id);
+    public function getPersonOfInterestList($sortBy, $order, $type);
+    public function getPersonOfInterestTitle();
+    public function addTestimony($case_id, $type, $date, $statement);
 //    public function modifyPersonOfInterest($id);
 }

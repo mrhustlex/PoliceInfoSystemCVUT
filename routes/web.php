@@ -46,3 +46,11 @@ Route::prefix('police_agent')->group(function() {
 //    Route::put('/add', 'PoliceAgentController@addPoliceMember');
     Route::delete('/delete', 'PoliceAgentController@deletePoliceMember');
 });
+
+Route::prefix('person_of_interest')->group(function() {
+//    Route::get('/', 'PersonOfInterestController@getPersonOfInterestIndex');
+    Route::get('/list', 'PersonOfInterestController@getPersonOfInterestList');
+    Route::get('/add_testimony', 'PersonOfInterestController@addTestimony');
+
+
+});

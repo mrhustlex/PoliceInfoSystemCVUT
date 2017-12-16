@@ -1,5 +1,5 @@
 <?php
-use App\CaseModel;use Illuminate\Support\Facades\Schema;
+use App\Model\CaseModel;use Illuminate\Support\Facades\Schema;
 $titles = Schema::getColumnListing(CaseModel::TABLE_NAME);
 $id = $case[CaseModel::COL_ID];
 $openOrClose = ($case[CaseModel::COL_CLOSED] == 0)? "/case/close?CaseID=":"/case/open?CaseID=";
@@ -20,9 +20,10 @@ $buttonName = ($case[CaseModel::COL_CLOSED] == 0)? "Close_the_case":"Open the ca
     @else
         <h1>{{$pageTitle}} is Already Solved !</h1>
     @endif
+    <a href="/person_of_interest/list?case_id={{$id}}" class="btn btn-info" role="button">Get Person Of Interest</a>
     <br><br>
 @foreach($titles as $title)
-    @if($title == \App\CaseModel::COL_SOLVED || $title == \App\CaseModel::COL_CLOSED)
+    @if($title == App\Model\CaseModel::COL_SOLVED || $title == App\Model\CaseModel::COL_CLOSED)
         {{$title}}:<br>
         {{($case[$title]==0)?"No": "Yes"}}
     @else

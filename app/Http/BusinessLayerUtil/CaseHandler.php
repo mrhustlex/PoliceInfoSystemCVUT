@@ -94,5 +94,12 @@ class caseHandler implements ICaseHandler
             return null;
         return $case;
     }
+
+
+    public function getCaseTitle()
+    {
+        // TODO: Implement getCaseTitle() method.
+        return $this->caseDAO->getRowTitle();
+    }
 }
 ?>

@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use AddColumnPoiIdToCaseTable;
 use Illuminate\Database\Eloquent\Model;
 
 class CaseModel extends Model
@@ -16,6 +17,7 @@ class CaseModel extends Model
     const COL_CLOSED = "Closed";
     const COL_CRIME_DATE = "Crime_date";
     const COL_O_DAY = "Open_date";
+    const COL_POI_ID = "Person_of_interest_id";
 
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
@@ -30,4 +32,10 @@ class CaseModel extends Model
     ];
     public $timestamps = false;
     protected $dates = [self::COL_CRIME_DATE];
+
+    public function POI()
+    {
+        return $this->hasOne(PersonOfInterestModel::class, 'person_of_interest_id');
+    }
+
 }

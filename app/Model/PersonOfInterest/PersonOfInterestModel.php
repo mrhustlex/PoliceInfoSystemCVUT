@@ -1,28 +1,32 @@
 <?php
 
 namespace App\Model;
-
-use CreatePersonOfInterest;
+use CreatePersonOfInterestTable;
 use CreateTestimonyTable;
 use Illuminate\Database\Eloquent\Model;
 
 class PersonOfInterestModel extends Model
 {
-    protected $table = CreatePersonOfInterest::TABLE_NAME;
-    protected $primaryKey = CreatePersonOfInterest::COL_ID;
+//    const TABLE_NAME = "personOfInterest";
+//    const COL_ID = "personOfInterestId";
+    protected $table = "personOfInterest";
+    protected $primaryKey = "personOfInterestId";
     public $timestamps = false;
 
 
     public function Role()
     {
-        return $this->hasOne(RoleOfPOIModel::class, CreatePersonOfInterest::COL_ID);
+        return $this->hasOne(RoleOfPOIModel::class, "personOfInterestId");
     }
 
     public function Testimony()
     {
-        return $this->hasMany(CreateTestimonyTable::class, CreateTestimonyTable::COL_POIID);
+        return $this->hasMany(TestimonyModel::class, "poiId");
     }
 
-
+    public function Case()
+    {
+        return $this->belongsTo(CaseModel::class, "personOfInterestId");
+    }
 
 }

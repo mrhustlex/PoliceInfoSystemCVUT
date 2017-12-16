@@ -3,17 +3,18 @@
 namespace App\Model;
 
 use CreateRoleOfPOI;
-use CreateSuspect;
+use CreateWithness;
 use Illuminate\Database\Eloquent\Model;
 
-class SuspectModel extends Model
+class WitnessModel extends Model
 {
-    protected $table = "suspect" ;
-    protected $primaryKey = "suspectId";
+    protected $table = "witness";
+    protected $primaryKey = "witnessId";
     public $timestamps = false;
 
     public function role()
     {
         return $this->belongsTo(RoleOfPOIModel::class, "POIid");
     }
+
 }

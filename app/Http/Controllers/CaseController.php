@@ -32,14 +32,10 @@ class CaseController extends Controller
         $sortBy = $request->input("sort", CaseModel::COL_ID);
         $order = $request->input("order", 'desc');
         $type =  $request->input("type", CaseDAOHandler::UNSOLVED_CASE);
-//        $caseHandler = new caseHandler();
         $cases = $this->caseHandler->getCaseList($sortBy, $order, $type);
         if($cases == null)
             return "No cases is in this police office";
-        if(CaseModel::first()!= null)
-            $title  =array_keys(CaseModel::first()->toArray());
-        else
-            $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
+        $title = $this->caseHandler->getCaseTitle();
         if($title == null)
             return "No such database Table";
 
@@ -70,8 +66,6 @@ class CaseController extends Controller
             return $request;
         }
 
-
-//        $caseHandler = new caseHandler();
         $caseAdded = $this->caseHandler->addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
         if($caseAdded == null)
             return redirect()->back()->with('message', "Failed to add case");

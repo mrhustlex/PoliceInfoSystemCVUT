@@ -1,6 +1,6 @@
 <?php
 
-use App\PoliceAgentModel;
+use App\Model\PoliceAgentModel;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

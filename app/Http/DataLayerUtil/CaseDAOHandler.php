@@ -2,6 +2,9 @@
 namespace App\Http;
 use App\Http\ICaseDaoHandler;
 use App\Model\CaseModel;
+use App\Model\PersonOfInterestModel;
+use App\Model\TestimonyModel;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Created by PhpStorm.
@@ -62,6 +65,10 @@ class CaseDAOHandler implements ICaseDaoHandler
             CaseModel::COL_DES => $description,
         ]);
         $case[CaseModel::COL_CRIME_DATE] = $time;
+        $poiModel = new PersonOfInterestModel();
+        $poiModel->save();
+        $case["person_of_interest_id"] = $poiModel["personOfInterestId"];
+        $poiModel->Case()->associate($case);
         $case->save();
         if($case == null)
             return null;
@@ -71,13 +78,13 @@ class CaseDAOHandler implements ICaseDaoHandler
 
     public function setCaseClose($id)
     {
+        // TODO: Implement setCaseClose() method.
         $case = $this->caseModel->find($id);
         if($case == null)
             return null;
         $case[CaseModel::COL_CLOSED] = 1;
         $case->save();
         return $case;
-        // TODO: Implement setCaseClose() method.
     }
 
     public function setCaseOpen($id)
@@ -101,5 +108,15 @@ class CaseDAOHandler implements ICaseDaoHandler
         $case[CaseModel::COL_SOLVED] = 1;
         $case->save();
         return $case;
+    }
+
+    public function getRowTitle()
+    {
+        // TODO: Implement getRowTitle() method.
+        if($this->caseModel->first()!= null)
+            $title  =array_keys($this->caseModel->first()->toArray());
+        else
+            $title = Schema::getColumnListing(CaseModel::TABLE_NAME);
+        return $title;
     }
 }

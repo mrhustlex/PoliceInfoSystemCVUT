@@ -32,6 +32,7 @@ interface ICaseHandler
     public function closeCase($id);
 
     public function solveCase($id);
+    public function getCaseTitle();
 
 }
 ?>

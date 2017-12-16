@@ -33,7 +33,7 @@ class CreateTestimonyTable extends Migration
 
             $table->integer(self::COL_POIID)->unsigned();
 
-            $table->foreign(self::COL_POIID)->references(CreatePersonOfInterest::COL_ID)->on(CreatePersonOfInterest::TABLE_NAME);
+            $table->foreign(self::COL_POIID)->references(CreatePersonOfInterestTable::COL_ID)->on(CreatePersonOfInterestTable::TABLE_NAME);
 
             $table->softDeletes();
         });

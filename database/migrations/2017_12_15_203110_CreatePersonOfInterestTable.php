@@ -1,17 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Schema;
 
-
-class CreatePersonOfInterest extends Migration
+class CreatePersonOfInterestTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     const TABLE_NAME = "personOfInterest";
     const COL_ID = "personOfInterestId";
 

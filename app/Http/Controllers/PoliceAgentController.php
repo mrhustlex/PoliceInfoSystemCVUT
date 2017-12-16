@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\PoliceAgentModel;
 use App\PoliceAgentModel;
 use CreatePoliceAgentTable;
 use Illuminate\Http\Request;

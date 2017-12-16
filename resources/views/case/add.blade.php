@@ -9,22 +9,22 @@
 @section('content')
     <form action="/case/add" method="post" enctype="multipart/form-data" >
        <?php
-        use App\CaseModel;use Illuminate\Support\Facades\Schema;
+        use App\Model\CaseModel;use Illuminate\Support\Facades\Schema;
         $titles = Schema::getColumnListing(CaseModel::TABLE_NAME);
         $titles = array_diff($titles, [CaseModel::COL_ID, CaseModel::COL_DEP_ID, CaseModel::COL_O_DAY]);
         ?>
         @foreach($titles as $title)
-            @if($title == \App\CaseModel::COL_CRIME_DATE || $title == \App\CaseModel::COL_O_DAY)
+            @if($title == App\Model\CaseModel::COL_CRIME_DATE || $title == App\Model\CaseModel::COL_O_DAY)
                    {{$title}} :<br>
                        <input type="datetime-local" value={{$default_time}} name={{$title}} ><br><br>
-                @elseif($title == \App\CaseModel::COL_CLOSED ||$title == \App\CaseModel::COL_SOLVED)
+                @elseif($title == App\Model\CaseModel::COL_CLOSED ||$title == App\Model\CaseModel::COL_SOLVED)
                    {{$title}} :<br>
                    <select name={{$title}} id={{$title}}>
                        <option value="1">Yes</option>
                        <option value="0" selected>No</option>
                    </select>
                 <br><br>
-                @elseif($title == \App\CaseModel::COL_TYPE)
+                @elseif($title == App\Model\CaseModel::COL_TYPE)
                    {{$title}} :<br>
                    <select name={{$title}} id={{$title}}>
                        <option selected>Normal</option>
@@ -35,8 +35,8 @@
                        <option>Victimless crime</option>
                    </select>
                    <br><br>
-               @else
-           {{$title}} :<br>
+               @elseif($title != 'person_of_interest_id')
+                    {{$title}} :<br>
                <input name={{$title}}><br><br>
                @endif
            @endforeach
