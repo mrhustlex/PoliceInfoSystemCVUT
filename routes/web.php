@@ -51,6 +51,7 @@ Route::prefix('person_of_interest')->group(function() {
 //    Route::get('/', 'PersonOfInterestController@getPersonOfInterestIndex');
     Route::get('/list', 'PersonOfInterestController@getPersonOfInterestList');
     Route::get('/add_testimony', 'PersonOfInterestController@addTestimony');
+    Route::get('/add_poi', 'PersonOfInterestController@addPersonOfInterest');
 
 
 });

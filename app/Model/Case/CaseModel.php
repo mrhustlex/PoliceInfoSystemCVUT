@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use AddColumnPoiIdToCaseTable;
+use App\POIToCaseModel;
 use Illuminate\Database\Eloquent\Model;
 
 class CaseModel extends Model
@@ -33,9 +34,9 @@ class CaseModel extends Model
     public $timestamps = false;
     protected $dates = [self::COL_CRIME_DATE];
 
-    public function POI()
+    public function POIGroup()
     {
-        return $this->hasOne(PersonOfInterestModel::class, 'person_of_interest_id');
+        return $this->hasMany(POIToCaseModel::class, 'case_id');
     }
 
 }

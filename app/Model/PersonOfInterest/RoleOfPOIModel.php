@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\POIToCaseModel;
 use CreateCriminal;
 use CreatePersonOfInterestTable;
 use CreateRoleOfPOI;
@@ -14,34 +15,31 @@ use Illuminate\Database\Eloquent\Model;
 class RoleOfPOIModel extends Model
 {
     protected $table = "roleOfPOI" ;
-    protected $primaryKey = "POIid";
+    protected $primaryKey = "rolePOIid";
+    protected $fillable = ["POIid"];
     public $timestamps = false;
 
     public function POI()
     {
-        return $this->belongsTo(PersonOfInterestModel::class,  "POIid");
+        return $this->belongsTo(PersonOfInterestModel::class,  "POIid", "personOfInterestId");
     }
 
-    public function Testimony()
-    {
-        return $this->hasMany(TestimonyModel::class, "rolePOIid");
-    }
     public function Victim()
     {
-        return $this->hasMany(VictimModel::class, "rolePOIid");
+        return $this->hasMany(VictimModel::class, "victimId");
     }
     public function Witness()
     {
-        return $this->hasMany(WitnessModel::class, "rolePOIid");
+        return $this->hasMany(WitnessModel::class, "witnessId");
     }
     public function Suspect()
     {
-        return $this->hasMany(SuspectModel::class, "rolePOIid");
+        return $this->hasMany(SuspectModel::class, "suspectId");
     }
 
     public function Criminal()
     {
-        return $this->hasMany(CriminalModel::classl, "rolePOIid");
+        return $this->hasMany(CriminalModel::class, "criminalId");
     }
 
 }

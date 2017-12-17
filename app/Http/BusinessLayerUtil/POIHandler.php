@@ -27,10 +27,6 @@ class POIHandler implements  IPOIHandler
         return $this->ipolice_dao->getPersonOfInterest($case_id);
     }
 
-    public function addPersonOfInterest()
-    {
-        // TODO: Implement addPersonOfInterest() method.
-    }
 
     public function deletePersonOfInterest($id)
     {
@@ -61,5 +57,11 @@ class POIHandler implements  IPOIHandler
     {
         // TODO: Implement addTestimony() method.
         return $this->ipolice_dao->addTestimony($poi_id, $type, $date, $statement);
+    }
+
+    public function addPersonOfInterest($case_id, $name, $surname, $address, $date)
+    {
+        // TODO: Implement addPersonOfInterest() method.
+        return $this->ipolice_dao->addPersonOfInterest($case_id, $name, $surname, $address, $date);
     }
 }

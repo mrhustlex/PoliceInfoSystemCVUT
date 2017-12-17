@@ -26,4 +26,5 @@ class PersonModel extends Model
         self::COL_ADD,
         self::COL_DOB
     ];
+    public $timestamps = false;
 }

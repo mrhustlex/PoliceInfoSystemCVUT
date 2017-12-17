@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\POIToCaseModel;
 use CreatePersonOfInterestTable;
 use CreateTestimonyTable;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ class PersonOfInterestModel extends Model
 //    const COL_ID = "personOfInterestId";
     protected $table = "personOfInterest";
     protected $primaryKey = "personOfInterestId";
+    protected $fillable = ["person_id"];
     public $timestamps = false;
 
 
@@ -24,9 +26,9 @@ class PersonOfInterestModel extends Model
         return $this->hasMany(TestimonyModel::class, "poiId");
     }
 
-    public function Case()
+    public function POILink()
     {
-        return $this->belongsTo(CaseModel::class, "personOfInterestId");
+        return $this->belongsTo(POIToCaseModel::class, "personOfInterestId", "poi_id");
     }
 
 }

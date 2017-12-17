@@ -4,6 +4,7 @@ use App\Http\ICaseDaoHandler;
 use App\Model\CaseModel;
 use App\Model\PersonOfInterestModel;
 use App\Model\TestimonyModel;
+use App\POIToCaseModel;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -65,10 +66,6 @@ class CaseDAOHandler implements ICaseDaoHandler
             CaseModel::COL_DES => $description,
         ]);
         $case[CaseModel::COL_CRIME_DATE] = $time;
-        $poiModel = new PersonOfInterestModel();
-        $poiModel->save();
-        $case["person_of_interest_id"] = $poiModel["personOfInterestId"];
-        $poiModel->Case()->associate($case);
         $case->save();
         if($case == null)
             return null;

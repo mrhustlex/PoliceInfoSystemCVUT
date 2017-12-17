@@ -15,7 +15,7 @@ class CriminalModel extends Model
 
     public function role()
     {
-        return $this->belongsTo(RoleOfPOIModel::class, "POIid");
+        return $this->belongsTo(RoleOfPOIModel::class, "rolePOIid");
     }
 
 }
