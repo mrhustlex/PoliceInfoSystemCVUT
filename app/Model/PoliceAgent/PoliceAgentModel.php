@@ -1,29 +1,39 @@
 <?php
 
-namespace App\Model;
-use CreatePoliceAgentTable;
+namespace App;
+
+use CreatePoliceAgent;
+use CreateRolePolice;
+use CreatePersonTable;
+
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PoliceAgentModel extends Model
 {
-    const TABLE_NAME = 'agents';
-    const COL_ID = 'police_id';
-    const COL_NAME = 'police_name';
-    const COL_POS = 'police_position';
-    const COL_NUM_CASE = 'num_case';
-    protected $connection = 'mysql';
+    const TABLE_NAME = "policeAgent";
+    const COL_ID = "policeAgent_id";
+    const COL_USERNAME = "username";
+    const COL_PASSWORD = "password";
+    const COL_DEPID = "department_id";
+    const COL_ROLPOLID = "rolePolice_id";
+    const COL_POLSTAID = "policeStation_id";
 
-    use SoftDeletes;
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
-    protected $fillable =[
-        self::COL_NAME,
-        self::COL_POS,
-        self::COL_NUM_CASE
+    
+    protected $fillable = [
+	    self::COL_USERNAME,
+	    self::COL_PASSWORD,
+	    self::COL_DEPID,
+	    self::COL_ROLPOLID,
+	    self::COL_POLSTAID,
     ];
-    public $timestamps = false;
-    protected $dates = ['deleted_at'];
-    protected $hidden = ['deleted_at'];
 
+    public $timestamps = false;
+
+
+    public function Role()
+    {
+        return $this->hasOne(RolePoliceModel::class, "rolePolice_id");
+    }
 }
