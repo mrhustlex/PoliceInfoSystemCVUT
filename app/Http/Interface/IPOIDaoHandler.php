@@ -14,12 +14,15 @@ interface IPOIDaoHandler
     public function getPersonOfInterest($id);
     public function all();
     public function find($id);
-    public function addTestimony($case_id, $type, $date, $statement);
     public function getTestimony($case_id);
     public function getSuspect($case_id);
     public function getCriminal($case_id);
     public function getVictim($case_id);
     public function getWitness($case_id);
     public function getRowTitle();
-
+    public function addTestimony($case_id, $type, $date, $statement);
+    public function addSuspect($case_id);
+    public function addCriminal($case_id);
+    public function addVictim($case_id);
+    public function addWitness($case_id);
 }
