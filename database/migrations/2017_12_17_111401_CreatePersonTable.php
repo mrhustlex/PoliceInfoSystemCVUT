@@ -25,7 +25,8 @@ class CreatePersonTable extends Migration
             $table->increments(self::COL_ID);
             $table->string(self::COL_SURNAME, 50);
             $table->string(self::COL_NAME, 50);
-            $table->string(self::COL_ADD, 50);
+            $table->string(self::COL_ADD, 50)->nullable();
+            $table->timestamp(self::COL_DOB)->nullable();
         });
     }
 
