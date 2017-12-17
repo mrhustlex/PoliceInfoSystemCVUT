@@ -11,10 +11,12 @@ class WitnessModel extends Model
     protected $table = "witness";
     protected $primaryKey = "witnessId";
     public $timestamps = false;
-
+    protected $fillable =[
+        "witnessId"
+    ];
     public function role()
     {
-        return $this->belongsTo(RoleOfPOIModel::class, "rolePOIid");
+        return $this->belongsTo(RoleOfPOIModel::class, "witnessId","rolePOIid");
     }
 
 }

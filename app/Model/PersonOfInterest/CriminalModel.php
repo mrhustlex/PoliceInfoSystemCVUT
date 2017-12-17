@@ -12,10 +12,13 @@ class CriminalModel extends Model
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
     public $timestamps = false;
+    protected $fillable = [
+        "criminalId"
+    ];
 
     public function role()
     {
-        return $this->belongsTo(RoleOfPOIModel::class, "rolePOIid");
+        return $this->belongsTo(RoleOfPOIModel::class, "criminalId", "rolePOIid");
     }
 
 }

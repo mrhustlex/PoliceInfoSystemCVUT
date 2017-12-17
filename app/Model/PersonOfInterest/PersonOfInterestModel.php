@@ -18,7 +18,7 @@ class PersonOfInterestModel extends Model
 
     public function Role()
     {
-        return $this->hasOne(RoleOfPOIModel::class, "personOfInterestId");
+        return $this->hasOne(RoleOfPOIModel::class,  "poiId", "personOfInterestId");
     }
 
     public function Testimony()
@@ -29,6 +29,11 @@ class PersonOfInterestModel extends Model
     public function POILink()
     {
         return $this->belongsTo(POIToCaseModel::class, "personOfInterestId", "poi_id");
+    }
+
+    public function Person()
+    {
+        return $this->belongsTo(PersonModel::class, "person_id", "person_id");
     }
 
 }

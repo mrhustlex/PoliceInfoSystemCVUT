@@ -26,20 +26,20 @@ class RoleOfPOIModel extends Model
 
     public function Victim()
     {
-        return $this->hasMany(VictimModel::class, "victimId");
+        return $this->hasOne(VictimModel::class, "victimId");
     }
     public function Witness()
     {
-        return $this->hasMany(WitnessModel::class, "witnessId");
+        return $this->hasOne(WitnessModel::class, "witnessId");
     }
     public function Suspect()
     {
-        return $this->hasMany(SuspectModel::class, "suspectId");
+        return $this->hasOne(SuspectModel::class, "suspectId");
     }
 
     public function Criminal()
     {
-        return $this->hasMany(CriminalModel::class, "criminalId");
+        return $this->hasOne(CriminalModel::class, "criminalId");
     }
 
 }

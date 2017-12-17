@@ -1,4 +1,3 @@
-{{--@extends('table_items', ['column' => $columnName, 'items' => $items, 'detail_api' => $apiLink, 'id' => $id])--}}
 @section("table")
 @if($column != null)
     <table class="table table-striped" style="padding:2% 2% 0 0;">

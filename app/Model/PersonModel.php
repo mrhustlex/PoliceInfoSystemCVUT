@@ -17,7 +17,7 @@ class PersonModel extends Model
 
     protected $connection = 'mysql';
 
-    use SoftDeletes;
+//    use SoftDeletes;
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
     protected $fillable =[
@@ -27,4 +27,5 @@ class PersonModel extends Model
         self::COL_DOB
     ];
     public $timestamps = false;
+
 }

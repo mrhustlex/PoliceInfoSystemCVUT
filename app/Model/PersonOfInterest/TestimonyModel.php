@@ -19,7 +19,7 @@ class TestimonyModel extends Model
 
     public function POI()
     {
-        return $this->belongsTo(PersonOfInterestModel::class,  "personOfInterestId", "poiId");
+        return $this->belongsTo(PersonOfInterestModel::class,  "poiId","personOfInterestId");
     }
 
 }

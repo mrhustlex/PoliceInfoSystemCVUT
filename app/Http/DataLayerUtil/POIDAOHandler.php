@@ -62,9 +62,8 @@ class POIDAOHandler implements IPOIDaoHandler
     {
         // TODO: Implement getPersonOfInterest() method.
         $case = $this->caseModel->find($case_id);
-        $poi = $case->POIGroup;
-        return $poi;
-
+        $poiGroup = $case->POIGroup;
+        return $poiGroup;
     }
 
     public function addTestimony($poi_id, $type, $date, $statement)
@@ -85,11 +84,13 @@ class POIDAOHandler implements IPOIDaoHandler
         return $testimony;
     }
 
-    public function getTestimony($case_id)
+    public function getTestimony($poi_id)
     {
         // TODO: Implement getTestimony() method.
-        $case = $this->caseModel->find($case_id);
-        $testimony = $case->POILink()->Testimony();
+        $poi = $this->poiModel->find($poi_id);
+        if($poi == null)
+            return null;
+        $testimony = $poi->Testimony;
         return $testimony;
     }
 
@@ -147,52 +148,135 @@ class POIDAOHandler implements IPOIDaoHandler
     public function setSuspect($poi_id)
     {
         // TODO: Implement setSuspect() method.
-        $role = $this->roleOfPOIModel->where("POIid" ,$poi_id)->first();
+        $poi = $this->poiModel->find($poi_id);
+        $role = $poi->Role;
         if($role == null)
-            return null;
-        $suspect = new SuspectModel();
-        $suspect->save();
-        $suspect->role()->associate($role);
-        $suspect->save();
-        return $suspect;
+            return "role not found";
+        if($role->Suspect == null){
+            $role_id = $role["rolePOIid"];
+            $suspect = new SuspectModel([
+                "suspectId" => $role_id
+            ]);
+            $suspect->save();
+            $suspect->role()->associate($role);
+            $suspect->save();
+            return $suspect;
+        }
+        return $role->Suspect;
     }
 
     public function setCriminal($poi_id)
     {
         // TODO: Implement setCriminal() method.
-        $role = $this->roleOfPOIModel->where("POIid" ,$poi_id)->first();
+        $poi = $this->poiModel->find($poi_id);
+        $role = $poi->Role;
         if($role == null)
-            return null;
-        $criminal = new CriminalModel();
-        $criminal->save();
-        $criminal->role()->associate($role);
-        $criminal->save();
-        return $criminal;
+            return "role not found";
+        if($role->Criminal == null){
+            $role_id = $role["rolePOIid"];
+            $criminal = new CriminalModel([
+                "criminalId" => $role_id
+            ]);
+            $criminal->save();
+            $criminal->role()->associate($role);
+            $criminal->save();
+            return $criminal;
+        }
+        return $role->Criminal;
     }
 
     public function setVictim($poi_id)
     {
         // TODO: Implement setVictim() method.
-        $role = $this->roleOfPOIModel->where("POIid" ,$poi_id)->first();
+        $poi = $this->poiModel->find($poi_id);
+        $role = $poi->Role;
+//        echo $poi;
         if($role == null)
-            return null;
-        $victim = new VictimModel();
-        $victim->save();
-        $victim->role()->associate($role);
-        $victim->save();
-        return $victim;
+            return "role not found";
+        if($role->Victim == null) {
+            $role_id = $role["rolePOIid"];
+            $victim = new VictimModel([
+                "victimId" => $role_id
+            ]);
+            $victim->save();
+            $victim->role()->associate($role);
+            $victim->save();
+            return $victim;
+        }
+        return $role->Victim;
     }
 
     public function setWitness($poi_id)
     {
         // TODO: Implement setWitness() method.
-        $role = $this->roleOfPOIModel->where("POIid" ,$poi_id)->first();
+        $poi = $this->poiModel->find($poi_id);
+        $role = $poi->Role;
         if($role == null)
+            return "role not found";
+        if($role->Witness == NULL){
+            $role_id = $role["rolePOIid"];
+            $witness = new WitnessModel([
+                "witnessId" =>$role_id
+            ]);
+            $witness->save();
+            $witness->role()->associate($role);
+            $witness->save();
+            return $witness;
+        }
+        return $role->Witness;
+    }
+    public function getPersonOfInterestDetail($poi_id)
+    {
+        // TODO: Implement getPersonOfInterestDetail() method.
+        $poi = $this->poiModel->find($poi_id);
+        if($poi == null)
             return null;
-        $witness = new WitnessModel();
-        $witness->save();
-        $witness->role()->associate($role);
-        $witness->save();
-        return $witness;
+        $person_detail = $poi->Person;
+        $person_detail = $person_detail->setAttribute('poi_id', $poi_id);
+        return $person_detail;
+    }
+
+
+    public function getSuspect($poi_id)
+    {
+        // TODO: Implement getSuspect() method.
+        $role = self::getRole($poi_id);
+        if($role != null)
+            return $role->Suspect;
+        return null;
+    }
+
+    public function getCriminal($poi_id)
+    {
+        // TODO: Implement getCriminal() method.
+        $role = self::getRole($poi_id);
+        if($role != null)
+            return $role->Criminal;
+        return null;
+    }
+
+    public function getVictim($poi_id)
+    {
+        // TODO: Implement getVictim() method.
+        $role = self::getRole($poi_id);
+        if($role != null)
+            return $role->Victim;
+        return null;
+    }
+
+    public function getWitness($poi_id)
+    {
+        // TODO: Implement getWitness() method.
+        $role = self::getRole($poi_id);
+        if($role != null)
+            return $role->Witness;
+        return null;
+    }
+    public function getRole($poi_id)
+    {
+        $poi = $this->poiModel->find($poi_id);
+        if($poi != null)
+           return $poi->Role;
+        return null;
     }
 }
