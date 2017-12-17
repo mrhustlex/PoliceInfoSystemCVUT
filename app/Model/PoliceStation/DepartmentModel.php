@@ -2,6 +2,11 @@
 
 namespace App;
 
+
+use CreatePoliceStation
+use CreateDepartment
+use CreateCaseTable
+
 use Illuminate\Database\Eloquent\Model;
 
 class DepartmentModel extends Model
