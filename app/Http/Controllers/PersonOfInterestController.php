@@ -40,7 +40,7 @@ class PersonOfInterestController extends Controller
             array_push($column, $key);
         if($poi_list == null)
             return "Person of Interest Not associated";
-//        ["person_id", "surname", "name", "address", "date_of_birth"]
+//        ["person_id", "surname", "name", "saddress", "date_of_birth"]
         return view('person_of_interest.index')
             ->with(['items'=> $poi_list,
             'columnName' =>$column,
@@ -168,6 +168,16 @@ class PersonOfInterestController extends Controller
             ->with([
                 'case_id' => $case_id,
             ]);
+    }
+
+    public function deletePersonOfInterest(Request $request){
+        if($request == null)
+            return redirect()->back()->with('message', "Failed to delete");
+        $poi_id = $request->input("poi_id");
+        $poi = $this->poi_handler->deletePersonOfInterest($poi_id);
+        if($poi == false)
+            return redirect()->back()->with('message', "Failed to delete");
+        return redirect()->back()->with('message', "Deleted poi_id=".$poi_id." successfully.");
     }
 
 }
