@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\IPOIHandler;
 use App\Http\POIHandler;
 use App\Http\Requests\CreatePersonOfInterestRequest;
+use App\Http\Requests\CreateTestimonyRequest;
 use App\Model\CaseModel;
 use Illuminate\Http\Request;
 use CreatePersonOfInterestTable;
@@ -72,7 +73,9 @@ class PersonOfInterestController extends Controller
         return view("person_of_interest.testimony.add")->with("poi_id",$poi_id);
     }
 
-    public function addTestimony(Request $request){
+    public function addTestimony(CreateTestimonyRequest $request){
+        if($request == null)
+            return redirect()->back()->with('message', "no request");
         $poi_id = $request->input('poi_id', null);
         $type = $request->input('type', "Undefined");
         $date = $request->input('date', "Nil");

@@ -1,4 +1,4 @@
-<?php
+    <?php
     date_default_timezone_set("Europe/Prague");
     $date = date("Y-m-d");
     $time = date("H:i:s");
@@ -46,4 +46,14 @@
            <br>
         <input type="submit"  name="submit" value="Add">
     </form>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 @endsection

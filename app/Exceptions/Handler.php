@@ -49,11 +49,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (view()->exists('errors.'.$exception->getStatusCode()))
-        {
-            Log::error('errors.'.$exception->getStatusCode()." occurs");
-            return response()->view('errors.'.$exception->getStatusCode(), [], $exception->getStatusCode());
-        }
+//        if (view()->exists('errors.'.$exception->getStatusCode()))
+//        {
+//            Log::error('errors.'.$exception->getStatusCode()." occurs");
+//        }
 
         return parent::render($request, $exception);
     }

@@ -54,7 +54,10 @@ class POIHandler implements  IPOIHandler
     public function addTestimony($poi_id, $type, $date, $statement)
     {
         // TODO: Implement addTestimony() method.
-        return $this->ipoi_dao->addTestimony($poi_id, $type, $date, $statement);
+          $test =  $this->ipoi_dao->addTestimony($poi_id, $type, $date, $statement);
+          if($test == null)
+              return "fail to add";
+          return $test;
     }
 
     public function addPersonOfInterest($case_id, $name, $surname, $address, $date)

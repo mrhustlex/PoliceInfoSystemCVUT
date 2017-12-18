@@ -24,8 +24,8 @@ class OpenCaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:50',
-            'description' => 'max:255'
+            'Name' => 'required|max:50',
+            'Description' => 'required|max:255'
         ];
     }
 }

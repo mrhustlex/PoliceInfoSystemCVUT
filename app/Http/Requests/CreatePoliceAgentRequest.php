@@ -13,7 +13,7 @@ class CreatePoliceAgentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,11 +24,11 @@ class CreatePoliceAgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'max:20',
-            'password' => 'max:20',
-            'name' => 'max:50',
-            'surname' => 'max:50',
-            'address' => 'max:50'
+            'username' => 'required|max:20',
+            'password' => 'required|max:20',
+            'name' => 'required|max:50',
+            'surname' => 'required|max:50',
+            'address' => 'required|max:50'
         ];
     }
 }

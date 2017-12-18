@@ -13,7 +13,7 @@ class CreatePersonOfInterestRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,9 @@ class CreatePersonOfInterestRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:50',
-            'surname' => 'max:50',
-            'address' => 'max:50'
+            'name' => 'filled|max:50',
+            'surname' => 'filled|max:50',
+            'address' => 'filled|max:50'
         ];
     }
 }

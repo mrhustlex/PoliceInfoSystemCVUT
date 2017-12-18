@@ -64,7 +64,7 @@ class CaseController extends Controller
 
         if($name == null||$type== null|| $solved == null || $closed==null
             || $depID == null||$description==null ){
-            return $request;
+            return "Not enough request";
         }
 
         $caseAdded = $this->caseHandler->addCase($name, $type, $solved, $closed, $crimeDate, $depID, $oDAY, $description, $time);
