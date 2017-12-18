@@ -2,80 +2,119 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\IPoliceAgentHandler;
+use App\Http\PoliceAgentHandler;
 use App\Model\PoliceAgentModel;
-use App\PoliceAgentModel;
-use CreatePoliceAgentTable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Mockery\Exception;
+use CreatePoliceAgent;
 
 class PoliceAgentController extends Controller
 {
-    public function getPoliceMemberIndex(){
-        $title = $agents = null;
-        try{
-            $agents = PoliceAgentModel::all();
-            $title  =array_keys(PoliceAgentModel::first()->toArray());
-//            $columns = Schema::getColumnListing(PoliceAgentModel::TABLE_NAME);
-        }catch (Exception $e){
-            echo $e->getMessage();
-        }
-        if($agents == null ||$title == null)
-            return "No agent is in this police office";
-        else
-            return view('police_agent.index')
-                ->with(['items'=> $agents,
-                    'columnName' => $title,
-                    'id' => PoliceAgentModel::COL_ID
-                ]);
+    private $policeAgent_handler;
+
+    /**
+     * PoliceAgentController constructor.
+     * @param $policeAgent_handler
+     */
+    public function __construct(IPoliceAgentHandler $policeAgent_handler)
+    {
+        $this->policeAgent_handler = $policeAgent_handler;
     }
 
-    public function addPoliceMember(Request $request){
-        $police_name = $request->input(PoliceAgentModel::COL_NAME, "peter");
-        $position = $request->input(PoliceAgentModel::COL_POS, "head");
-        if($police_name == null or $position == null) {
-            return 'NAME_OR_POSITION_NOT_FOUND';
-        }
-        $agent = new PoliceAgentModel([
-            PoliceAgentModel::COL_NAME => $police_name,
-            PoliceAgentModel::COL_POS => $position
-        ]);
-        $agent->save();
-        $agents = PoliceAgentModel::all();
-        if($agents == null)
-            return "No agents";
+    
+    public function getCaseIndex(Request $request){
+        $sortBy = $request->input("sort", CaseModel::COL_ID);
+        $order = $request->input("order", 'desc');
+        $type =  $request->input("type", CaseDAOHandler::UNSOLVED_CASE);
+        $cases = $this->caseHandler->getCaseList($sortBy, $order, $type);
+        if($cases == null)
+            return "No cases is in this police office";
+        $title = $this->caseHandler->getCaseTitle();
+        if($title == null)
+            return "No such database Table";
 
-        return view('police_agent.index')
-                ->with(['items'=> $agents,
-                'columnName' => array_keys(PoliceAgentModel::first()->toArray()),
-                'id' => PoliceAgentModel::COL_ID
+            return view('case.index')
+                ->with(['items'=> $cases,
+                    'columnName' => $title,
+                    'id' => CaseModel::COL_ID
+                ]);
+    }
+    
+
+    
+    public function getPoliceAgentDetail(Request $request){
+        if($request == null)
+            return redirect()->back()->with('message', "Failed to get detail");
+
+        $policeAgent_id = $request->input("policeAgent_id");
+        $policeAgent = $this->policeAgent_handler->getPoliceAgentDetail($policeAgent_id);
+
+        if($policeAgent == null)
+            return redirect()->back()->with('message', "Failed to get PoliceAgent");
+
+        return view('police_agent.detail')
+            ->with([
+                'policeAgent' => $policeAgent,
             ]);
     }
 
-    public function deletePoliceMember(Request $request){
-        $police_id = $request->input(PoliceAgentModel::COL_ID);
-        $police_obj = PoliceAgentModel::find($police_id);
-        if($police_obj != null && !$police_obj->trashed()){
-            $police_obj->delete();
-        }else
-            return 'POLICE_NOT_FOUND';
+    public function addPoliceAgent(Request $request){
+        $department_id = $request->input('department_id');
+        $name = $request->input('name',"name");
+        $surname = $request->input('surname',"surname");
+        $address = $request->input('address',"address");
+        $date = $request->input('date',"date");
+        $usr = $request->input('usr',"usr");
+        $pwd = $request->input('pwd',"pwd");
 
+        $policeAgent = $this->policeAgent_Handler->addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd);
+
+        if($policeAgent == NULL)
+            return "failure to add police agent";
+
+        return $policeAgent;
     }
-    public function modifyPoliceMember(){
 
+    public function setOfficer(Request $request){
+        $policeAgent_id = $request->input("policeAgent_id");
+        if($policeAgent_id == NULL)
+            return NULL;
+
+        return $this->policeAgent_Handler->modifyRolePoliceAgent($policeAgent_id, PoliceAgentController::TYPE_OFFICER);
     }
 
+    public function setInvestigator(Request $request){
+        $policeAgent_id = $request->input("policeAgent_id");
+        if($policeAgent_id == NULL)
+            return NULL;
 
-
-    public function getPoliceInformation(Request $request){
-        $police_id = $request->input(PoliceAgentModel::COL_ID);
-        if($police_id != null &&  $police_id > 0){
-            $agent = PoliceAgentModel::find($police_id);
-            return view('police_agent.personDetail')->with('agent', $agent);
-        }
-        return "No such User";
-
+        return $this->policeAgent_Handler->modifyRolePoliceAgent($policeAgent_id, PoliceAgentController::TYPE_INVESTIGATOR);
     }
+
+    public function setDetective(Request $request){
+        $policeAgent_id = $request->input("policeAgent_id");
+        if($policeAgent_id == NULL)
+            return NULL;
+
+        return $this->policeAgent_Handler->modifyRolePoliceAgent($policeAgent_id, PoliceAgentController::TYPE_DETECTIVE);
+    }
+
+    public function setHeadDpt(Request $request){
+        $policeAgent_id = $request->input("policeAgent_id");
+        if($policeAgent_id == NULL)
+            return NULL;
+
+        return $this->policeAgent_Handler->modifyRolePoliceAgent($policeAgent_id, PoliceAgentController::TYPE_HEADDPT);
+    }
+
+    public function setChiefPolice(Request $request){
+        $policeAgent_id = $request->input("policeAgent_id");
+        if($policeAgent_id == NULL)
+            return NULL;
+
+        return $this->policeAgent_Handler->modifyRolePoliceAgent($policeAgent_id, PoliceAgentController::TYPE_CHIEF);
+    }
+
 
 }
 

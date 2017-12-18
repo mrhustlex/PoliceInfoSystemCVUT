@@ -13,6 +13,13 @@ class PoliceAgentHandler implements IPoliceAgentHandler
 {
     private $policeAgentDaoHandler;
 
+
+    const TYPE_OFFICER = 0;
+    const TYPE_INVESTIGATOR = self::TYPE_OFFICER + 1;
+    const TYPE_DETECTIVE = self::TYPE_INVESTIGATOR + 1;
+    const TYPE_HEADDPT = self::TYPE_DETECTIVE + 1;
+    const TYPE_CHIEF = self::TYPE_HEADDPT + 1;
+    
     /**
      * PoliceAgentHandler constructor.
      * @param $policeAgentDao
@@ -25,22 +32,35 @@ class PoliceAgentHandler implements IPoliceAgentHandler
 
     public function getPoliceAgentDetail($id)
     {
-        // TODO: Implement getPoliceAgentDetail() method.
-        $police = $this->policeAgentDaoHandler->getPolice($id);
-        if($police == null)
-            return null;
-        else
-            return $police;
+        return $this->policeAgentDaoHandler->getPoliceAgentDetail($poi_id)->toArray();
     }
 
-    public function addPoliceAgent()
+    public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd)
     {
-        // TODO: Implement addPoliceAgent() method.
-        $police = $this->policeAgentDaoHandler->addPolice();
-        if($police == null)
-            return null;
-        else
-            return $police;
+        return $this->policeAgentDaoHandler->addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd);
+    }
+
+    public function modifyRolePoliceAgent($policeAgent_id, $role)
+    {
+        switch ($type){
+            case self::TYPE_OFFICER:
+                return $this->policeAgentDaoHandler->setOfficer($policeAgent_id);
+                break;
+            case self::TYPE_INVESTIGATOR:
+                return $this->policeAgentDaoHandler->setInvestigator($policeAgent_id);
+                break;
+            case self::TYPE_DETECTIVE:
+                return $this->policeAgentDaoHandler->setDetective($policeAgent_id);
+                break;
+            case self::TYPE_HEADDPT:
+                return $this->policeAgentDaoHandler->setHeaddpt($policeAgent_id);
+                break;
+            case self::TYPE_CHIEF:
+                return $this->policeAgentDaoHandler->setChief($policeAgent_id);
+                break;            
+            default:
+                return null;
+        }
     }
 
     public function deletePoliceAgent($id)
