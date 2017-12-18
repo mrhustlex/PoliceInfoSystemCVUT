@@ -1,10 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
+use App\PoliceAgentToDepartmentModel;
+use RolePoliceModel;
 use CreatePoliceAgent;
 use CreateRolePolice;
 use CreatePersonTable;
+use App\Model\DepartmentModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +38,15 @@ class PoliceAgentModel extends Model
     public function Role()
     {
         return $this->hasOne(RolePoliceModel::class, "rolePolice_id");
+    }
+
+    public function PoliceAgentLink()
+    {
+        return $this->belongsTo(PoliceAgentToDepartmentModel::class, "policeAgent_id", "policeAgent_id");
+    }
+
+    public function Person()
+    {
+        return $this->belongsTo(PersonModel::class, "person_id", "person_id");
     }
 }

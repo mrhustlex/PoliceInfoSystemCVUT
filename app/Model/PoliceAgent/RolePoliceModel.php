@@ -1,12 +1,14 @@
 <?php
 
-namespace App;
-use CreateHeadOfDepartment
-use CreateDetective
-use CreateChiefOfficer
-use CreateOfficer
-use CreatePoliceAgent
-use CreateRolePolice
+namespace App\Model;
+use CreateHeadOfDepartment;
+use CreateDetective;
+use CreateChiefOfficer;
+use CreateOfficer;
+use CreatePoliceAgent;
+use CreateRolePolice;
+use App\Model\PoliceAgentModel;
+
 
 use Illuminate\Database\Eloquent\Model;
 

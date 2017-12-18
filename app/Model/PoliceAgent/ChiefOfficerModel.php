@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Model;
-
-use CreateRolePolice
+use RolePoliceModel;
+use CreateRolePolice;
 use CreateChiefOfficer;
+
 use Illuminate\Database\Eloquent\Model;
 
 class ChiefOfficerModel extends Model

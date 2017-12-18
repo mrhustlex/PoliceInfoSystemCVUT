@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use CreateRolePolice
+use RolePoliceModel;
+use CreateRolePolice;
 use CreateHeadOfDepartment;
 use Illuminate\Database\Eloquent\Model;
 

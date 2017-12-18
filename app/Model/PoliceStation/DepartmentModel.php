@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 
-use CreatePoliceStation
-use CreateDepartment
-use CreateCaseTable
+use CreatePoliceStation;
+use CreateDepartment;
+use CreateCaseTable;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class DepartmentModel extends Model
     protected $primaryKey = "department_id";
 
     protected $fillable = [
-    	"name",
+    	"name"
     ];
 
     public $timestamps = false;
