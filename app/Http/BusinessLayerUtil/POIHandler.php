@@ -43,7 +43,6 @@ class POIHandler implements  IPOIHandler
     }
 
     public function makeRoleArr($poi_id){
-        $role = "";
         $w = ($this->ipoi_dao->getWitness($poi_id) != null) ? "Witness, ":"";
         $c = $this->ipoi_dao->getCriminal($poi_id)!= null? "Criminal, ":"";
         $v = $this->ipoi_dao->getVictim($poi_id)!= null? "Victim, ":"";
@@ -67,6 +66,10 @@ class POIHandler implements  IPOIHandler
     public function deletePersonOfInterest($id)
     {
         // TODO: Implement deletePersonOfInterest() method.
+        if($this->ipoi_dao->isPersonOfInterestActive($id))
+            return $this->ipoi_dao->inactivatePersonOfInterest($id);
+        else
+            return "delete inactive POI";
     }
 
     public function modifyPersonOfInterest($poi_id, $type)
@@ -110,7 +113,7 @@ class POIHandler implements  IPOIHandler
         $roles = self::getPersonOfInterestRole($poi_id);
         $case = $this->ipoi_dao->getCase($poi_id);
         $testimony = $this->ipoi_dao->getTestimony($poi_id);
-
+        $isActive = $this->ipoi_dao->isPersonOfInterestActive($poi_id);
         $details = [
             "roles" =>$roles,
             "case_id" => $case["CaseID"],
@@ -118,10 +121,19 @@ class POIHandler implements  IPOIHandler
             'back' => 'case',
             "poi_id" => $poi_id,
             "id" => $poi_id,
-            "testimony" => $testimony
+            "testimony" => $testimony,
+            "isActive" => $isActive
         ];
         return $details;
     }
 
+    public function restorePersonOfInterest($poi_id)
+    {
+        // TODO: Implement restorePersonOfInterest() method.
+        if(!$this->ipoi_dao->isPersonOfInterestActive($poi_id))
+            return $this->ipoi_dao->reactivatePersonOfInterest($poi_id);
+        else
+            return "restore active POI";
+    }
 }
 

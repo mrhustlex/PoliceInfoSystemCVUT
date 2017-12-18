@@ -95,7 +95,7 @@ class POIDAOHandler implements IPOIDaoHandler
         ]);
         $person->save();
         $poi = new PersonOfInterestModel([
-            "person_id" => $person[PersonModel::COL_ID]
+            "person_id" => $person[PersonModel::COL_ID],
         ]);
         $poi->save();
         $poi_link_case = self::makeCaseLink($poi["personOfInterestId"], $case_id);
@@ -209,7 +209,9 @@ class POIDAOHandler implements IPOIDaoHandler
     public function getPersonOfInterestDetail($poi_id)
     {
         // TODO: Implement getPersonOfInterestDetail() method.
+//        $poi = $this->poiModel->where(["invalid" => 0, "personOfInterestId" => $poi_id])->first();
         $poi = $this->poiModel->find($poi_id);
+
         if($poi == null)
             return null;
         $person_detail = $poi->Person;
@@ -271,4 +273,40 @@ class POIDAOHandler implements IPOIDaoHandler
         return $case;
     }
 
+    public function inactivatePersonOfInterest($poi_id)
+    {
+        // TODO: Implement inactivatePersonOfInterest() method.
+        $poi = $this->poiModel->find($poi_id);
+        if($poi == null)
+            return null;
+        $poi["invalid"] = true;
+        $poi->save();
+        if(self::isPersonOfInterestActive($poi_id))
+            return false;
+        return true;
+    }
+
+    public function reactivatePersonOfInterest($poi_id)
+    {
+        // TODO: Implement reactivatePersonOfInterest() method.
+        $poi = $this->poiModel->find($poi_id);
+        if($poi == null)
+            return null;
+        if($poi["invalid"] == false)
+            return false;
+        $poi["invalid"] = false;
+        $poi->save();
+        if(self::isPersonOfInterestActive($poi_id))
+            return true;
+        return false;
+    }
+
+    public function isPersonOfInterestActive($poi_id)
+    {
+        // TODO: Implement isPersonOfInterestActive() method.
+        if($this->poiModel->where(["invalid" => 0, "personOfInterestId" => $poi_id])->first() == null)
+            return false;
+        else
+            return true;
+    }
 }

@@ -51,6 +51,7 @@ Route::prefix('person_of_interest')->group(function() {
 //    Route::get('/', 'PersonOfInterestController@getPersonOfInterestIndex');
     Route::get('/list', 'PersonOfInterestController@getPersonOfInterestList');
     Route::post('/add', 'PersonOfInterestController@addPersonOfInterest');
+    Route::get('/delete', 'PersonOfInterestController@deletePersonOfInterest');
     Route::get('/set_suspect', 'PersonOfInterestController@setSuspect');
     Route::get('/set_witness', 'PersonOfInterestController@setWitness');
     Route::get('/set_victim', 'PersonOfInterestController@setVictim');

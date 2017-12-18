@@ -15,7 +15,6 @@ class CreatePersonOfInterestTable extends Migration
         Schema::create(self::TABLE_NAME, function(Blueprint $table)
         {
             $table->increments(self::COL_ID);
-            $table->softDeletes();
         });
     }
 

@@ -15,9 +15,7 @@ class caseSeeder extends Seeder
     {
 //
 //        $faker = Faker\Factory::create();
-//        $casHandler = new CaseHandler();
-//        $casHandler->addCase($faker->name, $faker->text(10),random_int(0, 1), random_int(0, 1),
-//            ,1, null,$faker->text ,$faker->time("H:m:s") )
+
     }
 
 

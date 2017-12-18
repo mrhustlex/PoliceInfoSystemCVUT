@@ -9,9 +9,9 @@ $title = "Person of interest - POI id:".$id;
     @else
         <a href="/person_of_interest/list?case_id={{$case_id}}" >Back</a>
     @endif
+
     <br>
     <a href="/person_of_interest/testimony/add?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
-    <br>
     <?php
     $roleArr = array();
     foreach ($roles as $role){
@@ -21,12 +21,19 @@ $title = "Person of interest - POI id:".$id;
         }
     }
     ?>
-    <br>
-    @foreach($roleArr as $key => $value)
-        @if($value == "No")
-            <a href="/person_of_interest/set_{{$key}}?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">set as {{$key}}</a>
-        @endif
-    @endforeach
+    @if(!$isActive)
+        <h1>The Person of interest is not relevant</h1>
+    @else
+        <a href="/person_of_interest/delete?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Inactivate Person Of Interest</a>
+        <br>
+
+        <br>
+        @foreach($roleArr as $key => $value)
+            @if($value == "No")
+                <a href="/person_of_interest/set_{{$key}}?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">set as {{$key}}</a>
+            @endif
+        @endforeach
+    @endif
     <div class="container" >
         <div class="row" >
             <div class="col-sm-6" >
@@ -59,7 +66,7 @@ $title = "Person of interest - POI id:".$id;
                             {{$key}} : {{$value}}
                             <br>
                         @endforeach
-                            <br>
+                        <br>
                     @endforeach
                 @endif
             </div>

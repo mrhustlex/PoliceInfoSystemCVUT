@@ -22,7 +22,7 @@ $buttonName = ($case[CaseModel::COL_CLOSED] == 0)? "Close_the_case":"Open the ca
     @else
         <h1>{{$pageTitle}} is Already Solved !</h1>
     @endif
-    <a href="/person_of_interest/list?case_id={{$id}}" class="btn btn-info" role="button">Get Person Of Interest</a>
+    <a href="/person_of_interest/list?case_id={{$id}}" class="btn btn-info" role="button">Person Of Interest</a>
     <br><br>
 @foreach($titles as $title)
     @if($title == App\Model\CaseModel::COL_SOLVED || $title == App\Model\CaseModel::COL_CLOSED)

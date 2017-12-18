@@ -15,6 +15,9 @@ interface IPOIDaoHandler
 {
     public function getPersonOfInterest($case_id);
     public function getPersonOfInterestDetail($poi_id);
+    public function inactivatePersonOfInterest($poi_id);
+    public function reactivatePersonOfInterest($poi_id);
+    public function isPersonOfInterestActive($poi_id);
     public function addPersonOfInterest($case_id, $name, $surname, $address, $date);
     public function getTestimony($poi_id);
     public function addTestimony($poi_id, $type, $date, $statement);
