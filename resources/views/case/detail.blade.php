@@ -14,6 +14,8 @@ $buttonName = ($case[CaseModel::COL_CLOSED] == 0)? "Close_the_case":"Open the ca
 @extends('layout.app')
 @section('title', $pageTitle)
 @section('content')
+    <a href={{ url()->previous() }}>Back</a>
+    <br>
     @if(!$solved)
         <a href={{$openOrClose}} class="btn btn-info" role="button">{{$buttonName}}</a>
         <a href="/case/solve?CaseID={{$id}}" class="btn btn-info" role="button">Solve the Case</a>

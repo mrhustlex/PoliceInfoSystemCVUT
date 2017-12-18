@@ -1,27 +1,58 @@
+<?php
+$title = "Person of interest - POI id:".$id;
+?>
 @extends('layout.app')
-@section('title', "Person of interest - ")
+@section('title',$title )
 @section('content')
-    <a href={{ url()->previous() }}>Back</a>
-<br><?php
-            $roleArr = array();
-    foreach ($roles as $role){
-            foreach ($role as $key => $value){
-                $id = $key."Id";
-                $roleArr[$key] = ($value== null)? "No": "Yes, id:".$value[$id];
-            }
-        }
-    ?>
-    @foreach($roleArr as $key => $value)
-        <h3>{{$key}} : {{$value}}</h3>
-        @if($value == "No")
-        <a href="/person_of_interest/set_{{$key}}?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">set {{$key}}</a>
-        @endif
-        <br>
-    @endforeach
-
-@foreach($poi as $key => $value)
-    <h3>{{$key}} : {{$value}}</h3>
+    @if($back == null)
+        <a href={{ url()->previous() }}>Back</a>
+    @else
+        <a href="/person_of_interest/list?case_id={{$case_id}}" >Back</a>
+    @endif
     <br>
-@endforeach
+    <a href="/person_of_interest/add_testimony?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
+    <br>
+    <?php
+    $roleArr = array();
+    foreach ($roles as $role){
+        foreach ($role as $key => $value){
+            $id = $key."Id";
+            $roleArr[$key] = ($value== null)? "No": "id: ".$value[$id];
+        }
+    }
+    ?>
+    <br>
+    @foreach($roleArr as $key => $value)
+        @if($value == "No")
+            <a href="/person_of_interest/set_{{$key}}?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">set as {{$key}}</a>
+        @endif
+    @endforeach
+    <div class="container" >
+        <div class="row" >
+            <div class="col-sm-6" >
+                <h3>Role:
+                    @foreach($roleArr as $key => $value)
+                        @if($value != "No")
+                            {{$key}},
+                        @endif
+                    @endforeach
+                </h3>
+
+                <h3>
+                    @foreach($roleArr as $key => $value)
+                        @if($value != "No")
+                            {{$key}}: {{$value}}
+                        @endif
+                    @endforeach
+                </h3>
+                @foreach($poi as $key => $value)
+                    <h3>{{$key}} : {{$value}}</h3>
+                @endforeach
+            </div>
+            <div class="col-sm-6">
+                Testimony
+            </div>
+        </div>
+    </div>
 
 @endsection

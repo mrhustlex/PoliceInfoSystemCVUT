@@ -17,7 +17,6 @@ interface IPOIDaoHandler
     public function getPersonOfInterestDetail($poi_id);
     public function addPersonOfInterest($case_id, $name, $surname, $address, $date);
     public function getTestimony($poi_id);
-    public function getRowTitle();
     public function addTestimony($poi_id, $type, $date, $statement);
     public function setSuspect($poi_id);
     public function setCriminal($poi_id);
@@ -27,6 +26,6 @@ interface IPOIDaoHandler
     public function getCriminal($poi_id);
     public function getVictim($poi_id);
     public function getWitness($poi_id);
-
+    public function getCase($poi_id);
 
 }

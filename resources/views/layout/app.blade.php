@@ -7,14 +7,13 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 @show
 <html>
-<Title>Police - @yield('title')</Title>
+<Title>@yield('title')</Title>
 <head>
     @section('navBar')
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
@@ -24,7 +23,6 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
                         <li><a href="/police_agent">Police Agent Management</a></li>
-                        <li><a href="/person_of_interest">Person Of Interest Management</a></li>
                         <li><a href="/case">Case Management</a></li>
                     </ul>
                     {{--<ul class="nav navbar-nav navbar-right">--}}

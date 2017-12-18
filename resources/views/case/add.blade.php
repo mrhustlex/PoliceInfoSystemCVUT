@@ -7,6 +7,8 @@
 @extends('layout.app')
 @section('title', 'Add Case')
 @section('content')
+    <a href={{ url()->previous() }}>Back</a>
+    <br>
     <form action="/case/add" method="post" enctype="multipart/form-data" >
        <?php
         use App\Model\CaseModel;use Illuminate\Support\Facades\Schema;

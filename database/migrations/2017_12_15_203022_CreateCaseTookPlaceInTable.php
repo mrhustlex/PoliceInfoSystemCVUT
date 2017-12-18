@@ -35,7 +35,9 @@ class CreateCaseTookPlaceInTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(self::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists(CreateCaseTookPlaceInTable::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }
 }

@@ -36,7 +36,8 @@ class CreateCaseTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists(CaseModel::TABLE_NAME);
-
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

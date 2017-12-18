@@ -52,12 +52,13 @@ Route::prefix('person_of_interest')->group(function() {
     Route::get('/list', 'PersonOfInterestController@getPersonOfInterestList');
     Route::get('/add_testimony', 'PersonOfInterestController@addTestimony');
     Route::get('/testimony', 'PersonOfInterestController@getTestimony');
-    Route::get('/add_poi', 'PersonOfInterestController@addPersonOfInterest');
+    Route::post('/add', 'PersonOfInterestController@addPersonOfInterest');
     Route::get('/set_suspect', 'PersonOfInterestController@setSuspect');
     Route::get('/set_witness', 'PersonOfInterestController@setWitness');
     Route::get('/set_victim', 'PersonOfInterestController@setVictim');
     Route::get('/set_criminal', 'PersonOfInterestController@setCriminal');
     Route::get('/role', 'PersonOfInterestController@getRole');
     Route::get('/detail', 'PersonOfInterestController@getPersonOfInterestDetail');
+    Route::get('/add', 'PersonOfInterestController@getPersonOfInterestAddPage');
 
 });

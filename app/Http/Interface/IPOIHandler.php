@@ -19,5 +19,6 @@ interface IPOIHandler
     public function modifyPersonOfInterest($poi_id, $type);
     public function getPersonOfInterestRole($poi_id);
     public function getPersonOfInterestDetail($poi_id);
+    public function getCase($poi_id);
 
 }

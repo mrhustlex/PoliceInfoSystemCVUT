@@ -28,7 +28,10 @@ class CreateCriminal extends Migration
      */
     public function down()
     {
-        Schema::drop(self::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists(self::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
 }

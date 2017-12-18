@@ -23,12 +23,6 @@ use App\POIToCaseModel;
 class POIDAOHandler implements IPOIDaoHandler
 {
     private $poiModel;
-    private $criminalModel;
-    private $roleOfPOIModel;
-    private $suspectModel;
-    private $testimonyModel;
-    private $victimModel;
-    private $witnessModel;
     private $caseModel;
 
     /**
@@ -43,17 +37,9 @@ class POIDAOHandler implements IPOIDaoHandler
      * @param $caseModel
      */
     public function __construct(PersonOfInterestModel $poiModel
-        , CriminalModel $criminalModel, RoleOfPOIModel $roleOfPOIModel
-        , SuspectModel $suspectModel, TestimonyModel $testimonyModel
-        , VictimModel $victimModel, WitnessModel $witnessModel, CaseModel $caseModel)
+        , CaseModel $caseModel)
     {
         $this->poiModel = $poiModel;
-        $this->criminalModel = $criminalModel;
-        $this->roleOfPOIModel = $roleOfPOIModel;
-        $this->suspectModel = $suspectModel;
-        $this->testimonyModel = $testimonyModel;
-        $this->victimModel = $victimModel;
-        $this->witnessModel = $witnessModel;
         $this->caseModel = $caseModel;
     }
 
@@ -138,11 +124,6 @@ class POIDAOHandler implements IPOIDaoHandler
         ]);
         $poi_role->save();
         return $poi_role;
-    }
-
-    public function getRowTitle()
-    {
-        // TODO: Implement getRowTitle() method.
     }
 
     public function setSuspect($poi_id)
@@ -233,7 +214,7 @@ class POIDAOHandler implements IPOIDaoHandler
             return null;
         $person_detail = $poi->Person;
         $person_detail = $person_detail->setAttribute('poi_id', $poi_id);
-        return $person_detail;
+        return $person_detail->toArray();
     }
 
 
@@ -279,4 +260,15 @@ class POIDAOHandler implements IPOIDaoHandler
            return $poi->Role;
         return null;
     }
+
+    public function getCase($poi_id)
+    {
+        // TODO: Implement getCaseId() method.
+        $poi = $this->poiModel->find($poi_id);
+        $case = $poi->POILink->Case;
+        if($case === null)
+            return null;
+        return $case;
+    }
+
 }

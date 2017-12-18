@@ -27,5 +27,8 @@ class PersonModel extends Model
         self::COL_DOB
     ];
     public $timestamps = false;
-
+    public function POI()
+    {
+        return $this->hasMany(PersonOfInterestModel::class, "person_id", "person_id");
+    }
 }

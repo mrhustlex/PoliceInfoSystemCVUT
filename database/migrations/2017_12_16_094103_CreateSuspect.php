@@ -26,7 +26,10 @@ class CreateSuspect extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists(self::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
 }
