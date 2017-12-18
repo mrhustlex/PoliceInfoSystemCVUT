@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\IPoliceAgentHandler;
 use App\Http\PoliceAgentHandler;
+use App\Http\Requests\CreatePoliceAgentRequest;
 use App\Model\PoliceAgentModel;
 use Illuminate\Http\Request;
 use CreatePoliceAgent;
@@ -58,7 +59,7 @@ class PoliceAgentController extends Controller
             ]);
     }
 
-    public function addPoliceAgent(Request $request){
+    public function addPoliceAgent(CreatePoliceAgentRequest $request){
         $department_id = $request->input('department_id');
         $name = $request->input('name',"name");
         $surname = $request->input('surname',"surname");

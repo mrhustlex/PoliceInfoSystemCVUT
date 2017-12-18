@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\CaseDAOHandler;
 use App\Http\caseHandler;
 use App\Http\ICaseHandler;
+use App\Http\Requests\OpenCaseRequest;
 use App\Model\CaseModel;
 use Carbon\Carbon;
 use DateTime;
@@ -47,7 +48,7 @@ class CaseController extends Controller
     }
 
 
-    public function openCase(Request $request){
+    public function openCase(OpenCaseRequest $request){
         if($request == null)
             return null;
         $name = $request->input(CaseModel::COL_NAME);

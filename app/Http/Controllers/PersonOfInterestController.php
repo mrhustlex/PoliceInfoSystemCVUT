@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\IPOIHandler;
 use App\Http\POIHandler;
+use App\Http\Requests\CreatePersonOfInterestRequest;
 use App\Model\CaseModel;
 use Illuminate\Http\Request;
 use CreatePersonOfInterestTable;
@@ -50,7 +51,7 @@ class PersonOfInterestController extends Controller
 
     }
 
-    public function addPersonOfInterest(Request $request){
+    public function addPersonOfInterest(CreatePersonOfInterestRequest $request){
         $case_id = $request->input('case_id');
         $name = $request->input('name', "Nil");
         $surname = $request->input('surname', "Nil");
