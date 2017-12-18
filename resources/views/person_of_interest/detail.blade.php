@@ -11,7 +11,6 @@ $title = "Person of interest - POI id:".$id;
     @endif
 
     <br>
-    <a href="/person_of_interest/testimony/add?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
     <?php
     $roleArr = array();
     foreach ($roles as $role){
@@ -24,6 +23,7 @@ $title = "Person of interest - POI id:".$id;
     @if(!$isActive)
         <h1>The Person of interest is not relevant</h1>
     @else
+        <a href="/person_of_interest/testimony/add?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
         <a href="/person_of_interest/delete?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Inactivate Person Of Interest</a>
         <br>
 

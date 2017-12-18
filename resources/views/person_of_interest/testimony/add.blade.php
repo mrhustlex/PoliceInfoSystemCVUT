@@ -17,7 +17,7 @@
         <input name='type' placeholder="type">
         <br>
         Date: <br>
-        <input type="datetime-local" value={{$default_time}} name="date"><br>
+        <input type="datetime-local" value={{$default_time}} min="1897-04-01" max={{$default_time}} name="date"><br>
         <br>
         Statement:
         <br>

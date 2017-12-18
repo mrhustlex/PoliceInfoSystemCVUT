@@ -7,6 +7,7 @@ use App\Http\POIHandler;
 use App\Model\CaseModel;
 use Illuminate\Http\Request;
 use CreatePersonOfInterestTable;
+use Illuminate\Support\Facades\Redirect;
 
 class PersonOfInterestController extends Controller
 {
@@ -80,9 +81,8 @@ class PersonOfInterestController extends Controller
         $testimony = $this->poi_handler->addTestimony($poi_id, $type, $date, $statement);
         if($testimony == null)
             return "POI not exist";
-        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
-        return view('person_of_interest.detail')
-            ->with($detail);
+        return Redirect::to("/person_of_interest/detail?poi_id=".$poi_id);
+
     }
 
     public function getTestimony(Request $request){
@@ -100,9 +100,8 @@ class PersonOfInterestController extends Controller
         $suspect = $this->poi_handler->modifyPersonOfInterest($poi_id, POIHandler::TYPE_SUSPECT);
         if($suspect == null)
             return redirect()->back()->with('message', "Failed to add suspect");
-        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
-        return view('person_of_interest.detail')
-            ->with($detail);
+//        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
+        return Redirect::to("/person_of_interest/detail?poi_id=".$poi_id);
     }
 
     public function setWitness(Request $request){
@@ -112,9 +111,8 @@ class PersonOfInterestController extends Controller
         $witness = $this->poi_handler->modifyPersonOfInterest($poi_id, POIHandler::TYPE_WITNESS);
         if($witness == null)
             return redirect()->back()->with('message', "Failed to add witness");
-        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
-        return view('person_of_interest.detail')
-            ->with($detail);
+//        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
+        return Redirect::to("/person_of_interest/detail?poi_id=".$poi_id);
     }
 
 
@@ -126,8 +124,8 @@ class PersonOfInterestController extends Controller
         if($criminal == null)
             return redirect()->back()->with('message', "Failed to add criminal");
         $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
-        return view('person_of_interest.detail')
-            ->with($detail);
+        return Redirect::to("/person_of_interest/detail?poi_id=".$poi_id);
+
     }
 
     public function setVictim(Request $request){
@@ -138,8 +136,8 @@ class PersonOfInterestController extends Controller
         if($victim == null)
             return redirect()->back()->with('message', "Failed to add victim");
         $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
-        return view('person_of_interest.detail')
-            ->with($detail);
+        return Redirect::to("/person_of_interest/detail?poi_id=".$poi_id);
+
     }
 
     public function getRole(Request $request){

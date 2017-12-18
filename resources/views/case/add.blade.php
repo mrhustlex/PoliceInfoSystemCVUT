@@ -18,7 +18,7 @@
         @foreach($titles as $title)
             @if($title == App\Model\CaseModel::COL_CRIME_DATE || $title == App\Model\CaseModel::COL_O_DAY)
                    {{$title}} :<br>
-                       <input type="datetime-local" value={{$default_time}} name={{$title}} ><br><br>
+                       <input type="datetime-local" value={{$default_time}} min="1897-04-01" max={{$default_time}} name={{$title}} ><br><br>
                 @elseif($title == App\Model\CaseModel::COL_CLOSED ||$title == App\Model\CaseModel::COL_SOLVED)
                    {{$title}} :<br>
                    <select name={{$title}} id={{$title}}>

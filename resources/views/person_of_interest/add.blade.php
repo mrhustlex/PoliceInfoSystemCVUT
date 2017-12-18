@@ -22,7 +22,7 @@
         <textarea rows="4" cols="50" name='address' placeholder="Address"></textarea>
         <br>
         Date of Birth: <br>
-        <input type="datetime-local" value={{$default_time}} name="date"><br><br>
+        <input type="datetime-local" value={{$default_time}} name="date" min="1897-04-01" max={{$default_time}}><br><br>
         <br>
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="submit"  name="submit" value="Add">
