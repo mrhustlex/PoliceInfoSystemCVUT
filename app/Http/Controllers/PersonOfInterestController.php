@@ -63,16 +63,26 @@ class PersonOfInterestController extends Controller
             ->with($poi_detail);
     }
 
+    public function addTestimonyPage(Request $request){
+        $poi_id = $request->input('poi_id');
+        if($poi_id == null)
+            return "POI not entered";
+        return view("person_of_interest.testimony.add")->with("poi_id",$poi_id);
+    }
 
     public function addTestimony(Request $request){
-        $poi_id = $request->input('poi_id');
+        $poi_id = $request->input('poi_id', null);
         $type = $request->input('type', "Undefined");
         $date = $request->input('date', "Nil");
         $statement = $request->input('statement', "Nil");
+        if($poi_id == null)
+            return redirect()->back()->with('message', "poi_id is not entered");
         $testimony = $this->poi_handler->addTestimony($poi_id, $type, $date, $statement);
         if($testimony == null)
             return "POI not exist";
-        return $testimony;
+        $detail = $this->poi_handler->getPersonOfInterestDetail($poi_id);
+        return view('person_of_interest.detail')
+            ->with($detail);
     }
 
     public function getTestimony(Request $request){

@@ -15,10 +15,8 @@ interface IPOIHandler
     public function addPersonOfInterest($case_id, $name, $surname, $address, $date);
     public function deletePersonOfInterest($poi_id);
     public function addTestimony($poi_id, $type, $date, $statement);
-    public function getTestimony($poi_id);
     public function modifyPersonOfInterest($poi_id, $type);
     public function getPersonOfInterestRole($poi_id);
     public function getPersonOfInterestDetail($poi_id);
-    public function getCase($poi_id);
 
 }

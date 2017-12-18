@@ -10,7 +10,7 @@ $title = "Person of interest - POI id:".$id;
         <a href="/person_of_interest/list?case_id={{$case_id}}" >Back</a>
     @endif
     <br>
-    <a href="/person_of_interest/add_testimony?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
+    <a href="/person_of_interest/testimony/add?poi_id={{$poi["poi_id"]}}" class="btn btn-info" role="button">Add Testimony</a>
     <br>
     <?php
     $roleArr = array();
@@ -50,7 +50,18 @@ $title = "Person of interest - POI id:".$id;
                 @endforeach
             </div>
             <div class="col-sm-6">
-                Testimony
+                <h2>Testimony</h2>
+                @if($testimony == null)
+                    No Testimony for this person.
+                @else
+                    @foreach($testimony as $items)
+                        @foreach($items->toArray() as $key => $value)
+                            {{$key}} : {{$value}}
+                            <br>
+                        @endforeach
+                            <br>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

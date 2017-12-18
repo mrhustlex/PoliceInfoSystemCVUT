@@ -101,12 +101,6 @@ class POIHandler implements  IPOIHandler
         return $role_array;
     }
 
-    public function getTestimony($poi_id)
-    {
-        // TODO: Implement getTestimony() method.
-        return $this->ipoi_dao->getTestimony($poi_id);
-    }
-
     public function getPersonOfInterestDetail($poi_id)
     {
         // TODO: Implement getPersonOfInterestDetail() method.
@@ -114,22 +108,19 @@ class POIHandler implements  IPOIHandler
         if($poi == null)
             return redirect()->back()->with('message', "Failed to get POI");
         $roles = self::getPersonOfInterestRole($poi_id);
-        $case = self::getCase($poi_id);
+        $case = $this->ipoi_dao->getCase($poi_id);
+        $testimony = $this->ipoi_dao->getTestimony($poi_id);
+
         $details = [
             "roles" =>$roles,
             "case_id" => $case["CaseID"],
             "poi" => $poi,
             'back' => 'case',
             "poi_id" => $poi_id,
-            "id" => $poi_id
+            "id" => $poi_id,
+            "testimony" => $testimony
         ];
         return $details;
-    }
-
-    public function getCase($poi_id)
-    {
-        // TODO: Implement getCaseId() method.
-        return $this->ipoi_dao->getCase($poi_id);
     }
 
 }

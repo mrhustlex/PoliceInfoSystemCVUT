@@ -50,8 +50,6 @@ Route::prefix('police_agent')->group(function() {
 Route::prefix('person_of_interest')->group(function() {
 //    Route::get('/', 'PersonOfInterestController@getPersonOfInterestIndex');
     Route::get('/list', 'PersonOfInterestController@getPersonOfInterestList');
-    Route::get('/add_testimony', 'PersonOfInterestController@addTestimony');
-    Route::get('/testimony', 'PersonOfInterestController@getTestimony');
     Route::post('/add', 'PersonOfInterestController@addPersonOfInterest');
     Route::get('/set_suspect', 'PersonOfInterestController@setSuspect');
     Route::get('/set_witness', 'PersonOfInterestController@setWitness');
@@ -60,5 +58,9 @@ Route::prefix('person_of_interest')->group(function() {
     Route::get('/role', 'PersonOfInterestController@getRole');
     Route::get('/detail', 'PersonOfInterestController@getPersonOfInterestDetail');
     Route::get('/add', 'PersonOfInterestController@getPersonOfInterestAddPage');
-
+    Route::prefix('testimony')->group(function() {
+        Route::post('/add', 'PersonOfInterestController@addTestimony');
+        Route::get('/add', 'PersonOfInterestController@addTestimonyPage');
+        Route::get('/', 'PersonOfInterestController@getTestimony');
+    });
 });
