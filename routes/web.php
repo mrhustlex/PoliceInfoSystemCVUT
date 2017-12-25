@@ -38,9 +38,10 @@ Route::prefix('police_agent')->group(function() {
    //index page of police agent
     Route::get('/', 'PoliceAgentController@getPoliceMemberIndex');
     //police agent api
-    Route::get('/add', function (){
+    Route::get('/add', 'PoliceAgentController@addPoliceMemberIndex');
+    /*Route::get('/add', function (){
         return view('police_agent.add');
-    });
+    });*/
     Route::post('/add', 'PoliceAgentController@addPoliceMember');
     Route::get('/detail', 'PoliceAgentController@getPoliceInformation');
 //    Route::put('/add', 'PoliceAgentController@addPoliceMember');
