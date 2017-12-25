@@ -23,24 +23,52 @@ class PoliceAgentController extends Controller
     }
 
     
-    public function getCaseIndex(Request $request){
-        $sortBy = $request->input("sort", CaseModel::COL_ID);
-        $order = $request->input("order", 'desc');
-        $type =  $request->input("type", CaseDAOHandler::UNSOLVED_CASE);
-        $cases = $this->caseHandler->getCaseList($sortBy, $order, $type);
-        if($cases == null)
-            return "No cases is in this police office";
-        $title = $this->caseHandler->getCaseTitle();
-        if($title == null)
-            return "No such database Table";
+    public function getPoliceMemberIndex(Request $request){
+        $type = $request->input('type');
+        $policeAgents = $this->policeAgent_handler->getPoliceAgentList($type);
+        if($policeAgents == null){
+            return "No Agents found in the database";
+        } else {
+            $details = array();
+            $i = 0;
+            foreach ($policeAgents as $agent) {
+                $detail = $this->policeAgent_handler->getPoliceAgentDetail($agent["policeAgent_id"], $type);
+                if($detail != NULL){
+                    $details[$i] = $detail;
+                    $i++;
+                }
+            }
+            if(count($details) != 0){
+                $columnNames = array_keys($details[0]);
+            } else {
+                $columnNames = [
+                    "surname",
+                    "name",
+                    "address",  
+                    "username",
+                    "department",
+                    "policeStation",
+                    "role"
+                ];
+            }
+        }
 
-            return view('case.index')
-                ->with(['items'=> $cases,
-                    'columnName' => $title,
-                    'id' => CaseModel::COL_ID
-                ]);
+
+        return view('police_agent.index')
+            ->with([
+                'items'=> $details,
+                'columnNames' => $columnNames,
+                'id' => PoliceAgentModel::COL_ID
+            ]);
+ 
     }
     
+    public function addPoliceMemberIndex(Request $request){
+        $places = $this->policeAgent_handler->getDepartmentStationList();
+        return view('police_agent.add')->with([
+            'places' => $places
+        ]);
+    }
 
     
     public function getPoliceAgentDetail(Request $request){
@@ -53,10 +81,11 @@ class PoliceAgentController extends Controller
         if($policeAgent == null)
             return redirect()->back()->with('message', "Failed to get PoliceAgent");
 
-        return view('police_agent.detail')
+       /* return view('police_agent.detail')
             ->with([
                 'policeAgent' => $policeAgent,
             ]);
+        */
     }
 
     public function addPoliceAgent(CreatePoliceAgentRequest $request){

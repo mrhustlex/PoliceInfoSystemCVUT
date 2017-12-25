@@ -11,13 +11,16 @@ namespace App\Http;
 
 interface IPoliceAgentDaoHandler
 {
-    public function getPoliceRow($sortBy, $order, $type);
-    public function all();
-//    public function find($id);
-    public function addPolice();
-    public function deletePolice($id);
-//    public function modifyPolice($id);
-    public function getPolice($id);
-
+	public function all();
+	public function getPoliceAgentDetail($id);
+	public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd, $role);
+	public function makeDepartmentLink($policeAgent_id, $department_id);
+	public function makeRoleLink($policeAgent_id);
+	public function setOfficer($policeAgent_id);
+	public function setInvestigator($policeAgent_id);
+	public function setDetective($policeAgent_id);
+	public function setHeaddpt($policeAgent_id);
+	public function setChief($policeAgent_id);
+	public function getPolice($id);
 
 }

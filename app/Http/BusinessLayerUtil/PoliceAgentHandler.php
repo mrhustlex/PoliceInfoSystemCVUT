@@ -30,9 +30,42 @@ class PoliceAgentHandler implements IPoliceAgentHandler
     }
 
 
-    public function getPoliceAgentDetail($id)
+    public function getPoliceAgentDetail($id, $type)
     {
-        return $this->policeAgentDaoHandler->getPoliceAgentDetail($poi_id)->toArray();
+        $policeAgent = $this->policeAgentDaoHandler->getPoliceAgentDetail($id);
+
+        if($type == NULL){
+            return $policeAgent;
+        } else {
+            switch ($type) {
+                case self::TYPE_OFFICER:
+                    if($policeAgent['role'] != "Officer"){
+                        return NULL;
+                    }
+                    break;
+                case self::TYPE_INVESTIGATOR:
+                    if($policeAgent['role'] != "Crime Scene Investigator"){
+                        return NULL;
+                    }
+                    break;
+                case self::TYPE_DETECTIVE:
+                    if($policeAgent['role'] != "Detective"){
+                        return NULL;
+                    }
+                    break;
+                case self::TYPE_HEADDPT:
+                    if($policeAgent['role'] != "Head of Department"){
+                        return NULL;
+                    }
+                    break;
+                case self::TYPE_CHIEF:
+                    if($policeAgent['role'] != "Chief Officer"){
+                        return NULL;
+                    }
+                    break;
+            }     
+        }
+        return $policeAgent;
     }
 
     public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd)
@@ -83,12 +116,22 @@ class PoliceAgentHandler implements IPoliceAgentHandler
             return $police;
     }
 
-    public function getPoliceAgentList($sortBy, $order, $type)
+    public function getPoliceAgentList()
     {
-        // TODO: Implement getPoliceAgentList() method.
-        $cases = $this->policeAgentDaoHandler->getPoliceRow($sortBy, $order, $type);
-        if($cases == null)
+        $policeAgents = $this->policeAgentDaoHandler->getPoliceRow();
+        if($policeAgents == null)
             return null;
-        return $cases;
+        
+        return $policeAgents;
+    }
+
+    public function getPoliceAgentTitle()
+    {
+        // TODO: Implement getCaseTitle() method.
+        return $this->policeAgentDaoHandler->getRowTitle();
+    }
+
+    public function getDepartmentStationList(){
+        return $this->policeAgentDaoHandler->getDepartmentStationList();
     }
 }
