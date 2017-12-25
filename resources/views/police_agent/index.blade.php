@@ -1,7 +1,19 @@
+<?php
+use App\PoliceAgentModel;
+use App\Http\PoliceAgentHandler;
+
+$linkAgents = [
+    "/police_agent/add" =>"Add Police Agent",
+    "/police_agent" => "ALL AGENTS",
+    "/police_agent?type=".\App\Http\PoliceAgentHandler::TYPE_OFFICER=>"OFFICER",
+    "/police_agent?type=".\App\Http\PoliceAgentHandler::TYPE_INVESTIGATOR=>"INVESTIGATOR",
+    "/police_agent?type=".\App\Http\PoliceAgentHandler::TYPE_DETECTIVE=>"DETECTIVE",
+    "/police_agent?type=".\App\Http\PoliceAgentHandler::TYPE_HEADDPT=>"HEAD OF DEPARTMENT",
+    "/police_agent?type=".\App\Http\PoliceAgentHandler::TYPE_CHIEF=>"CHIEF OF POLICE",
+    ];
+
+?>
 @extends('layout.app')
-@section('title', 'Police Agent')
-@section('content')
-    <a href="/police_agent/add" class="btn btn-info" role="button">Add Member</a>
-<br>
-@include('layout.show_detail',['column' => $columnName, 'items' => $items, 'detail_api' =>"/police_agent/detail?police_id=", 'id' => $id])
-@endsection
+@section('title', 'Police Agents')
+@include('police_agent.table',['columnNames' => $columnNames, 'items' => $items])
+
