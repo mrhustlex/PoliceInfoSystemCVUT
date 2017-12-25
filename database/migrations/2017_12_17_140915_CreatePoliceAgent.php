@@ -36,7 +36,7 @@ class CreatePoliceAgent extends Migration
             $table->integer(self::COL_DEPID)->unsigned();
             $table->foreign(self::COL_DEPID)->references("department_id")->on("department");
 
-            $table->integer(self::COL_ROLPOLID)->unsigned();
+            $table->integer(self::COL_ROLPOLID)->nullable()->unsigned();
         });
     }
 
