@@ -25,6 +25,12 @@ class CreateOfficer extends Migration
 
             $table->softDeletes();
         });
+        DB::table(self::TABLE_NAME)->insert([
+            "officer_id" => 9
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "officer_id" => 10
+        ]);
     }
     /**
      * Reverse the migrations.

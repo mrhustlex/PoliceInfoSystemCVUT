@@ -25,6 +25,10 @@ class CreateChiefOfficer extends Migration
 
             $table->softDeletes();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "chiefOfficer_id" => 1
+        ]);
     }
     /**
      * Reverse the migrations.

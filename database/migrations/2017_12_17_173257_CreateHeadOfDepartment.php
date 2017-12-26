@@ -25,6 +25,13 @@ class CreateHeadOfDepartment extends Migration
 
             $table->softDeletes();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "headOfDepartment_id" => 3
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "headOfDepartment_id" => 4
+        ]);
     }
     /**
      * Reverse the migrations.

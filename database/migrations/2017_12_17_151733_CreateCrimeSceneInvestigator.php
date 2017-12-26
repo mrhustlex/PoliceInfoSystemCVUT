@@ -25,6 +25,10 @@ class CreateCrimeSceneInvestigator extends Migration
 
             $table->softDeletes();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "crimeSceneInvestigator_id" => 2
+        ]);
     }
     /**
      * Reverse the migrations.

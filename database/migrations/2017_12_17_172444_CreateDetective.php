@@ -25,6 +25,19 @@ class CreateDetective extends Migration
 
             $table->softDeletes();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "detective_id" => 5
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "detective_id" => 6
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "detective_id" => 7
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "detective_id" => 8
+        ]);
     }
     /**
      * Reverse the migrations.
