@@ -67,3 +67,8 @@ Route::prefix('person_of_interest')->group(function() {
         Route::get('/', 'PersonOfInterestController@getTestimony');
     });
 });
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
