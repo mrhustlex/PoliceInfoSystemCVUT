@@ -1,19 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mok00
- * Date: 12/15/2017
- * Time: 11:25 AM
- */
-
 namespace App\Http;
 
-
+/**
+ * Implements the business layer for the management of the Police Agents
+ *
+ */
 class PoliceAgentHandler implements IPoliceAgentHandler
 {
     private $policeAgentDaoHandler;
-
-
     const TYPE_OFFICER = 0;
     const TYPE_INVESTIGATOR = self::TYPE_OFFICER + 1;
     const TYPE_DETECTIVE = self::TYPE_INVESTIGATOR + 1;
@@ -30,10 +24,14 @@ class PoliceAgentHandler implements IPoliceAgentHandler
     }
 
 
+    /**
+     * Returns the detailed information of an agent of a certain type (if wrong type he will be ignored)
+     * @param $policeAgent_id
+     *
+     */
     public function getPoliceAgentDetail($id, $type)
     {
         $policeAgent = $this->policeAgentDaoHandler->getPoliceAgentDetail($id);
-
         if($type == NULL){
             return $policeAgent;
         } else {
@@ -68,10 +66,28 @@ class PoliceAgentHandler implements IPoliceAgentHandler
         return $policeAgent;
     }
 
+    /**
+     * Adds a police Agent to the information system
+     * @param $name
+     * @param $surname
+     * @param $address
+     * @param $dob : date of birth
+     * @param $username
+     * @param $password
+     * @param $department : integer
+     * @param $type : integer
+     *
+     */
     public function addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type){
         return $this->policeAgentDaoHandler->addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type);
     }
 
+    /**
+     * Changes the role of a police Agent
+     * @param $policeAgent_id
+     * @param $role
+     *
+     */
     public function modifyRolePoliceAgent($policeAgent_id, $role)
     {
         switch ($type){
@@ -95,6 +111,11 @@ class PoliceAgentHandler implements IPoliceAgentHandler
         }
     }
 
+    /**
+     * Removes a police Agent from the system
+     * @param $policeAgent_id
+     *
+     */
     public function deletePoliceAgent($id)
     {
         // TODO: Implement deletePoliceAgent() method.
@@ -105,16 +126,10 @@ class PoliceAgentHandler implements IPoliceAgentHandler
             return $police;
     }
 
-    public function modifyPoliceAgent($id)
-    {
-        // TODO: Implement modifyPoliceAgent() method.
-        $police = $this->policeAgentDaoHandler->modifyPolice($id);
-        if($police == null)
-            return null;
-        else
-            return $police;
-    }
-
+    /**
+     * Returns the lost of the police Agents
+     *
+     */
     public function getPoliceAgentList()
     {
         $policeAgents = $this->policeAgentDaoHandler->getPoliceRow();
@@ -124,12 +139,22 @@ class PoliceAgentHandler implements IPoliceAgentHandler
         return $policeAgents;
     }
 
+    /**
+     * Returns the column names of the table policeAgent
+     *
+     */
     public function getPoliceAgentTitle()
     {
         // TODO: Implement getCaseTitle() method.
         return $this->policeAgentDaoHandler->getRowTitle();
     }
 
+    /**
+     * Returns a list of the departments and the matching id
+     * Used to display which department a police Agent belongs to
+     * @param $policeAgent_id
+     *
+     */
     public function getDepartmentStationList(){
         return $this->policeAgentDaoHandler->getDepartmentStationList();
     }

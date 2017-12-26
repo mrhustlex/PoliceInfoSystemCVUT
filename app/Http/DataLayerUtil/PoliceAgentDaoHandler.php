@@ -5,10 +5,7 @@
  * Date: 12/15/2017
  * Time: 11:27 AM
  */
-
 namespace App\Http;
-
-
 use App\Model\PoliceAgentModel;
 use App\Model\RolePoliceModel;
 use App\Model\OfficerModel;
@@ -21,7 +18,10 @@ use App\Model\DepartmentModel;
 use App\Model\PoliceAgentToDepartmentModel;
 use App\Model\PoliceStationModel;
 
-
+/**
+ * Implements the data layer for the management of the Police Agents
+ *
+ */
 class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
 {
     private $policeAgentModel;
@@ -35,7 +35,8 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
     private $personModel;
     private $policeStationModel;
 
-    /* Returns a list of arrays containing all departments names and id and matching police station name and id
+    /**
+     * Returns a list of arrays containing all departments names and id and matching police station name and id
      *
      * Returns NULL if no departments are found
      */
@@ -52,13 +53,13 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
                 $depID = $dep['department_id'];
                 
                 $place = ["name" => $depName, "id" => $depID];
-
                 $places[$i] = $place;
                 $i++;
             }
         }
         return $places;
     }
+
 
     /**
      * PoliceAgentDAOHandler constructor.
@@ -85,29 +86,29 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         $this->policeStationModel = $policeStationModel;
     }
 
-
+    /**
+     * Returns a list of all policeAgents in the system
+     */
     public function all()
     {
         return $this->policeAgentModel->all();
     }
 
+    /**
+     * Returns the detailed information of a policeAgent
+     * @param $poloceAgent_id
+     */
     public function getPoliceAgentDetail($policeAgent_id)
     {
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         if($policeAgent == null)
             return null;
-
         $roleLink = $this->rolePoliceModel->where('policeAgent_id', $policeAgent['policeAgent_id'])->get();
-
         $role = $this->getPoliceAgentRole($roleLink[0]['rolePolice_id']);
-
         $person = $this->personModel->find($policeAgent['policeAgent_id']);
-
         $department = $this->departmentModel->find($policeAgent['department_id']);
         $dptName = $department['name'];
-
         $station = $this->policeStationModel->find($department['policeStation_id']);  
-
         $detail = [
             "surname" => $person["surname"],
             "name" => $person["name"],
@@ -117,19 +118,26 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
             "policeStation" => $station["name"],
             "role" => $role
         ];
-
         return $detail;
     }
 
+    /**
+     * Adds a police Agent to the information system
+     * @param $name
+     * @param $surname
+     * @param $address
+     * @param $dob : date of birth
+     * @param $username
+     * @param $password
+     * @param $department : integer
+     * @param $type : integer
+     *
+     */
     public function addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type){
         if($department == NULL)
             return NULL;
-
         $policeStation = $this->departmentModel->find($department);
         $policeStationId = $policeStation['policeStation_id'];
-
-        var_dump($policeStationId);
-
         $person = new PersonModel([
             PersonModel::COL_SURNAME => $surname,
             PersonModel::COL_NAME => $name,
@@ -137,7 +145,6 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
             PersonModel::COL_DOB => $dob
         ]);
         $person->save();
-
         $policeAgent = new PoliceAgentModel([
             "policeAgent_id" => $person[PersonModel::COL_ID],
             "username" => $username,
@@ -147,13 +154,10 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
             "rolePolice_id" => NULL
         ]);
         $policeAgent->save();
-
-
         $rolePolice = new RolePoliceModel([
             RolePoliceModel::COL_POLID => $policeAgent[PoliceAgentModel::COL_ID]
         ]);
         $rolePolice->save();
-
         switch ($type) {
             case 0:
                 $roleAssign = new OfficerModel([
@@ -183,34 +187,17 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
                 break;
         }
         $roleAssign->save();
-
         return $policeAgent;
     }
 
 
-    public function makeDepartmentLink($policeAgent_id, $department_id){
-        $policeAgent_department = new PoliceAgentToDepartmentModel([
-            "policeAgent_id" => $policeAgent_id,
-            "department_id" => $department_id
-        ]);
-        $policeAgent_department->save();
-
-        return $policeAgent_department;
-    }
-
-    public function makeRoleLink($policeAgent_id){
-        $policeAgent_role = new RolePoliceModel([
-            "policeAgent_id" => $policeAgent_id
-        ]);
-        $policeAgent_role->save();
-
-        return $policeAgent_role;
-    }
-
+    /**
+     * sets the role of a policeAgent to Officer
+     * @param $policeAgent_id
+     */
     public function setOfficer($policeAgent_id){
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         $role = $policeAgent->Role();
-
         if($role->officer() == NULL){
             $role_id = $role['rolePolice_id'];
             $officer = new OfficerModel([
@@ -223,10 +210,13 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role->officer();
     }
 
+    /**
+     * sets the role of a policeAgent to Crime Scene Investigator
+     * @param $policeAgent_id
+     */
     public function setInvestigator($policeAgent_id){
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         $role = $policeAgent->Role();
-
         if($role->CrimeSceneInvestigator() == NULL){
             $role_id = $role['rolePolice_id'];
             $officer = new CrimeSceneInvestigatorModel([
@@ -239,10 +229,13 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role->CrimeSceneInvestigator();
     }
 
+    /**
+     * sets the role of a policeAgent to Detective
+     * @param $policeAgent_id
+     */
     public function setDetective($policeAgent_id){
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         $role = $policeAgent->Role();
-
         if($role->Detective() == NULL){
             $role_id = $role['rolePolice_id'];
             $detective = new DetectiveModel([
@@ -255,10 +248,13 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role->Detective();
     }
 
+    /**
+     * sets the role of a policeAgent to Head of department
+     * @param $policeAgent_id
+     */
     public function setHeaddpt($policeAgent_id){
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         $role = $policeAgent->Role();
-
         if($role->HeadOfTheDepartment() == NULL){
             $role_id = $role['rolePolice_id'];
             $headdpt = new  HeadOfDepartmentModel([
@@ -271,10 +267,13 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role->HeadOfTheDepartment();
     }
 
+    /**
+     * sets the role of a policeAgent to Chief of Police
+     * @param $policeAgent_id
+     */
     public function setChief($policeAgent_id){
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         $role = $policeAgent->Role();
-
         if($role->ChiefOfficer() == NULL){
             $role_id = $role['rolePolice_id'];
             $chief = new  ChiefOfficerModel([
@@ -287,6 +286,10 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role->HeadOfTheDepartment();
     }
     
+    /**
+     * Returns the role of a police Agent
+     * @param $id
+     */
     public function getPoliceAgentRole($id){
         $role = NULL;
         if($role == NULL){
@@ -321,17 +324,17 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $role;
     }
 
-    public function getPolice($id)
-    {
-        // TODO: Implement getPolice() method.
-        return $this->police_model->find($id);
-    }
 
+    /**
+     * Returns all police Agents
+     */
     public function getPoliceRow(){
         return $this->policeAgentModel::orderBy('policeAgent_id')->get();
     }
 
-
+    /**
+     * returns the column names of the police Agent table
+     */
     public function getRowTitle()
     {
         // TODO: Implement getRowTitle() method.
