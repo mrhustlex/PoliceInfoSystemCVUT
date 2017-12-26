@@ -24,8 +24,6 @@ class CreatePoliceAgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|max:20',
-            'password' => 'required|max:20',
             'name' => 'required|max:50',
             'surname' => 'required|max:50',
             'address' => 'required|max:50'
