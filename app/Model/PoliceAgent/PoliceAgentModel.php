@@ -21,10 +21,12 @@ class PoliceAgentModel extends Model
     const COL_ROLPOLID = "rolePolice_id";
     const COL_POLSTAID = "policeStation_id";
 
+    
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
-    
+    public $incrementing = false;
     protected $fillable = [
+        self::COL_ID,
 	    self::COL_USERNAME,
 	    self::COL_PASSWORD,
 	    self::COL_DEPID,

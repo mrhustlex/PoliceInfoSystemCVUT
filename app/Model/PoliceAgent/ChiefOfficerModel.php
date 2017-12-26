@@ -15,6 +15,10 @@ class ChiefOfficerModel extends Model
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
 
+    protected $fillable = [
+        "chiefOfficer_id"
+    ];
+
     public $timestamps = false;
 
     public function role()
