@@ -106,7 +106,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         $department = $this->departmentModel->find($policeAgent['department_id']);
         $dptName = $department['name'];
 
-        $station = $this->policeStationModel->find($department['department_id']);  
+        $station = $this->policeStationModel->find($department['policeStation_id']);  
 
         $detail = [
             "surname" => $person["surname"],
@@ -121,9 +121,14 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $detail;
     }
 
-    public function addPoliceAgent($name, $surname, $address, $dob, $department, $type){
+    public function addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type){
         if($department == NULL)
             return NULL;
+
+        $policeStation = $this->departmentModel->find($department);
+        $policeStationId = $policeStation['policeStation_id'];
+
+        var_dump($policeStationId);
 
         $person = new PersonModel([
             PersonModel::COL_SURNAME => $surname,
@@ -133,15 +138,12 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         ]);
         $person->save();
 
-        $username = $name.'.'.$surname;
-        $password = 'password';
-
         $policeAgent = new PoliceAgentModel([
             "policeAgent_id" => $person[PersonModel::COL_ID],
             "username" => $username,
             "password" => $password,
             "department_id" => $department,
-            "policeStation_id" => 1,
+            "policeStation_id" => $policeStationId,
             "rolePolice_id" => NULL
         ]);
         $policeAgent->save();
@@ -176,7 +178,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
                 break;
             case 4:
                 $roleAssign = new ChiefOfficerModel([
-                    'chiefOfficer_id_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                    'chiefOfficer_id' =>$rolePolice[RolePoliceModel::COL_ID]
                 ]);
                 break;
         }

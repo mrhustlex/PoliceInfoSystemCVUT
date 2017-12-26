@@ -77,15 +77,17 @@ class PoliceAgentController extends Controller
         $name = $request->input('name');
         $address = $request->input('address');
         $dob = $request->input('date_of_birth');
+        $username = $request->input('username');
+        $password = $request->input('password');
         $department = $request->input('department');
         $type = $request->input('type');
 
-        $personAdded = $this->policeAgent_handler->addPoliceAgent($name, $surname, $address, $dob, $department, $type);
+        $personAdded = $this->policeAgent_handler->addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type);
 
         if($personAdded == null)
             return redirect()->back()->with('message', "Failed to add Agent");
         else{
-            echo "Added case successfully";
+            echo "Added agent successfully";
             return self::getPoliceMemberIndex($request);
         }
     }
