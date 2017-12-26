@@ -28,6 +28,17 @@ class CreateRolePolice extends Migration
         Schema::table('policeAgent', function($table) {
             $table->foreign(CreatePoliceAgent::COL_ROLPOLID)->references(self::COL_ID)->on(self::TABLE_NAME);
         });
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        for($i = 1; $i<11;$i++){
+            DB::table(self::TABLE_NAME)->insert([
+                "policeAgent_id" => $i
+            ]);
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**

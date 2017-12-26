@@ -24,13 +24,18 @@ class CreateOfficer extends Migration
             $table->foreign(self::COL_ID)->references(CreateRolePolice::COL_ID)->on(CreateRolePolice::TABLE_NAME);
 
             $table->softDeletes();
+
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
         DB::table(self::TABLE_NAME)->insert([
             "officer_id" => 9
         ]);
         DB::table(self::TABLE_NAME)->insert([
             "officer_id" => 10
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
     /**
      * Reverse the migrations.
@@ -44,4 +49,5 @@ class CreateOfficer extends Migration
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }
+
 }

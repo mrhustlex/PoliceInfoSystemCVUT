@@ -51,7 +51,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
                 $policeStation = $this->policeStationModel->find($dep['policeStation_id']);
                 $depName = $policeStation['name']." -- ".$dep['name'];
                 $depID = $dep['department_id'];
-                
+
                 $place = ["name" => $depName, "id" => $depID];
                 $places[$i] = $place;
                 $i++;
@@ -103,16 +103,18 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         $policeAgent = $this->policeAgentModel->find($policeAgent_id);
         if($policeAgent == null)
             return null;
+          // echo $policeAgent;
+          // return null;
         $roleLink = $this->rolePoliceModel->where('policeAgent_id', $policeAgent['policeAgent_id'])->get();
         $role = $this->getPoliceAgentRole($roleLink[0]['rolePolice_id']);
         $person = $this->personModel->find($policeAgent['policeAgent_id']);
         $department = $this->departmentModel->find($policeAgent['department_id']);
         $dptName = $department['name'];
-        $station = $this->policeStationModel->find($department['policeStation_id']);  
+        $station = $this->policeStationModel->find($department['policeStation_id']);
         $detail = [
             "surname" => $person["surname"],
             "name" => $person["name"],
-            "address" => $person["address"],  
+            "address" => $person["address"],
             "username" => $policeAgent["username"],
             "department" => $department["name"],
             "policeStation" => $station["name"],
@@ -164,7 +166,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
                     'officer_id' =>$rolePolice[RolePoliceModel::COL_ID]
                 ]);
                 break;
-            
+
             case 1:
                 $roleAssign = new CrimeSceneInvestigatorModel([
                     'crimeSceneInvestigator_id' =>$rolePolice[RolePoliceModel::COL_ID]
@@ -285,7 +287,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         }
         return $role->HeadOfTheDepartment();
     }
-    
+
     /**
      * Returns the role of a police Agent
      * @param $id
@@ -320,7 +322,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         if($role == NULL){
             $role = "No current assigned role";
         }
-        
+
         return $role;
     }
 

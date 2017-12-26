@@ -7,7 +7,7 @@ use App\Model\PoliceAgentModel;
 use CreatePoliceAgentLinkToDepartmentTable;
 use Illuminate\Database\Eloquent\Model;
 
-class POIToCaseModel extends Model
+class policeLinkToDepartmentModel extends Model
 {
     protected $table = 'policeLinkToDepartment';
     protected $primaryKey = "policeLinkToDepartment_id";

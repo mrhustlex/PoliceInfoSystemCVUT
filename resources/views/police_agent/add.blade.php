@@ -56,5 +56,14 @@ $default_time = $date.'T'.$time;
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     <input type="submit"  name="submit" value="Add">
 </form>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @endsection
 

@@ -14,7 +14,7 @@ use CreatePoliceAgent;
 class PoliceAgentController extends Controller
 {
     private $policeAgent_handler;
-    
+
     /**
      * PoliceAgentController constructor.
      * @param $policeAgent_handler
@@ -23,7 +23,7 @@ class PoliceAgentController extends Controller
     {
         $this->policeAgent_handler = $policeAgent_handler;
     }
-    
+
     /**
      * Handles the view of the list of police Agents
      * @param $request
@@ -49,7 +49,7 @@ class PoliceAgentController extends Controller
                 $columnNames = [
                     "surname",
                     "name",
-                    "address",  
+                    "address",
                     "username",
                     "department",
                     "policeStation",
@@ -57,15 +57,16 @@ class PoliceAgentController extends Controller
                 ];
             }
         }
-        return view('police_agent.index')
-            ->with([
-                'items'=> $details,
-                'columnNames' => $columnNames,
-                'id' => PoliceAgentModel::COL_ID
-            ]);
- 
+
+       return view('police_agent.index')
+           ->with([
+               'items'=> $details,
+               'columnNames' => $columnNames,
+               'id' => PoliceAgentModel::COL_ID
+           ]);
+//
     }
-    
+
 
     /**
      * Handles the view designed to allow an user to add a police Agent to the system
@@ -77,7 +78,7 @@ class PoliceAgentController extends Controller
             'places' => $places
         ]);
     }
-    
+
     /**
      * Prcesses the information received by an user trying to add a police Agent to the system
      * @param $request

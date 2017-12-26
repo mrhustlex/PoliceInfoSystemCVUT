@@ -26,6 +26,8 @@ class CreateDetective extends Migration
             $table->softDeletes();
         });
 
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
         DB::table(self::TABLE_NAME)->insert([
             "detective_id" => 5
         ]);
@@ -38,6 +40,8 @@ class CreateDetective extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "detective_id" => 8
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
     /**
      * Reverse the migrations.

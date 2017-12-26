@@ -13,7 +13,7 @@ class PoliceAgentHandler implements IPoliceAgentHandler
     const TYPE_DETECTIVE = self::TYPE_INVESTIGATOR + 1;
     const TYPE_HEADDPT = self::TYPE_DETECTIVE + 1;
     const TYPE_CHIEF = self::TYPE_HEADDPT + 1;
-    
+
     /**
      * PoliceAgentHandler constructor.
      * @param $policeAgentDao
@@ -61,7 +61,7 @@ class PoliceAgentHandler implements IPoliceAgentHandler
                         return NULL;
                     }
                     break;
-            }     
+            }
         }
         return $policeAgent;
     }
@@ -105,7 +105,7 @@ class PoliceAgentHandler implements IPoliceAgentHandler
                 break;
             case self::TYPE_CHIEF:
                 return $this->policeAgentDaoHandler->setChief($policeAgent_id);
-                break;            
+                break;
             default:
                 return null;
         }
@@ -135,7 +135,7 @@ class PoliceAgentHandler implements IPoliceAgentHandler
         $policeAgents = $this->policeAgentDaoHandler->getPoliceRow();
         if($policeAgents == null)
             return null;
-        
+
         return $policeAgents;
     }
 

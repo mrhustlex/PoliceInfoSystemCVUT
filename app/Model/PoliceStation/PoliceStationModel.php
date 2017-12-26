@@ -2,8 +2,8 @@
 
 namespace App\Model;
 
-use CreateDepartment
-use CreatePoliceStation
+use CreateDepartment;
+use CreatePoliceStation;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +20,6 @@ class PoliceStationModel extends Model
     public $timestamps = false;
 
     public function Department(){
-    	return $this->hasMany(DeparmentModel::class, "departmentId")
+    	return $this->hasMany(DeparmentModel::class, "departmentId");
     }
 }

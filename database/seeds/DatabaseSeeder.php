@@ -1,16 +1,23 @@
-<?php
+  <?php
 
-use Illuminate\Database\Seeder;
+  namespace database\seeds\DatabaseSeeder;
 
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-         $this->call(caseSeeder::class);
-    }
-}
+      use Illuminate\Database\Seeder;
+
+  class DatabaseSeeder extends Seeder
+  {
+      /**
+       * Run the database seeds.
+       *
+       * @return void
+       */
+      public function run()
+      {
+           // $this->call(caseSeeder::class);
+
+
+
+
+
+      }
+  }

@@ -21,14 +21,17 @@ class CreateChiefOfficer extends Migration
         {
             $table->integer(self::COL_ID)->unsigned();
 
-            $table->foreign(self::COL_ID)->references(CreateRolePolice::COL_ID)->on(CreateRolePolice::TABLE_NAME);
+            $table->foreign(self::COL_ID)->references("rolePolice_id")->on("rolePolice");
 
             $table->softDeletes();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         DB::table(self::TABLE_NAME)->insert([
             "chiefOfficer_id" => 1
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
     /**
      * Reverse the migrations.
@@ -37,7 +40,8 @@ class CreateChiefOfficer extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists(self::TABLE_NAME);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
-
