@@ -6,11 +6,11 @@ $default_time = $date.'T'.$time;
 ?>
 
 @extends('layout.app')
-@section('title', 'Add Case')
+@section('title', 'Add Police Agent')
 @section('content')
 <a href={{ url()->previous() }} >Back</a>
 <br>
-<form action="/case/add" method="post" enctype="multipart/form-data" >
+<form action="/police_agent/add" method="post" enctype="multipart/form-data" >
     <?php
     use App\Model\PoliceAgentModel;
     use App\Model\PersonModel;
@@ -19,6 +19,8 @@ $default_time = $date.'T'.$time;
         PersonModel::COL_NAME,
         PersonModel::COL_ADD,
         PersonModel::COL_DOB,
+        'username',
+        'password',
         'department',
         'type'
     ];
@@ -28,7 +30,7 @@ $default_time = $date.'T'.$time;
             {{$title}} :<br>
                 <input type="datetime-local" value={{$default_time}} min="1897-04-01" max={{$default_time}} name={{$title}} ><br><br>
 
-        @elseif($title == App\Model\PersonModel::COL_SURNAME || $title == App\Model\PersonModel::COL_NAME || $title == App\Model\PersonModel::COL_ADD)
+        @elseif($title == App\Model\PersonModel::COL_SURNAME || $title == App\Model\PersonModel::COL_NAME || $title == App\Model\PersonModel::COL_ADD || $title == 'username' || $title == 'password')
             {{$title}} :<br>
             <input type="text" name={{$title}}><br><br>
         
@@ -51,6 +53,7 @@ $default_time = $date.'T'.$time;
             </select>
         @endif
     @endforeach
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
     <input type="submit"  name="submit" value="Add">
 </form>
 @endsection
