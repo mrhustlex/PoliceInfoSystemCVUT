@@ -25,6 +25,16 @@ class CreatePoliceStation extends Migration
 			$table->string(self::COL_NAME,50);
 			$table->string(self::COL_ADDRESS, 50);
 		});
+
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Praha Police Station",
+            "address" => "Vanickova 6, blok 3, room 14"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Brno Police Station",
+            "address" => "8 allee des cottages"
+        ]);
     }
 
     /**

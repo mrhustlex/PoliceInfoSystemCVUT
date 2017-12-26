@@ -28,6 +28,73 @@ class CreatePersonTable extends Migration
             $table->string(self::COL_ADD, 50)->nullable();
             $table->timestamp(self::COL_DOB)->nullable();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Does",
+            "name" => "John",
+            "address" => "Praha 1"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Mary",
+            "name" => "Jane",
+            "address" => "Praha 2"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Chan",
+            "name" => "Jacky",
+            "address" => "Praha 3"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Poppins",
+            "name" => "Mary",
+            "address" => "Praha 4"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Bond",
+            "name" => "James",
+            "address" => "Praha 007"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Potter",
+            "name" => "Adri",
+            "address" => "Strahov blok 8"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Durand",
+            "name" => "Jessica",
+            "address" => "Praha 7"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Claus",
+            "name" => "Santa",
+            "address" => "North Pole"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Habile",
+            "name" => "Bill",
+            "address" => "Rio"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Habile",
+            "name" => "Bill",
+            "address" => "Rio"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "surname" => "Bonisseur",
+            "name" => "Hubert",
+            "address" => "Paris"
+        ]);
+
     }
 
     /**

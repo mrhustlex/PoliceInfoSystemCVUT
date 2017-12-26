@@ -38,6 +38,96 @@ class CreatePoliceAgent extends Migration
 
             $table->integer(self::COL_ROLPOLID)->nullable()->unsigned();
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 1,
+            "username" => "Never",
+            "password" => "foobar",
+            "department_id" => 1,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 1
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 2,
+            "username" => "Gonna",
+            "password" => "foobar",
+            "department_id" => 2,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 1
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 3,
+            "username" => "Give",
+            "password" => "foobar",
+            "department_id" => 3,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 1
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 4,
+            "username" => "YouUP",
+            "password" => "foobar",
+            "department_id" => 4,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 1
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 5,
+            "username" => "n3VER",
+            "password" => "foobar",
+            "department_id" => 5,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 1
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 6,
+            "username" => "g0NNA",
+            "password" => "foobar",
+            "department_id" => 6,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 2
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 7,
+            "username" => "letYou",
+            "password" => "foobar",
+            "department_id" => 7,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 2
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 8,
+            "username" => "downNever",
+            "password" => "foobar",
+            "department_id" => 8,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 2
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 9,
+            "username" => "gonnaRun",
+            "password" => "foobar",
+            "department_id" => 9,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 2
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "policeAgent_id" => 10,
+            "username" => "around",
+            "password" => "foobar",
+            "department_id" => 10,
+            "rolePolice_id" => NULL,
+            "policeStation_id" => 2
+        ]);
     }
 
     /**

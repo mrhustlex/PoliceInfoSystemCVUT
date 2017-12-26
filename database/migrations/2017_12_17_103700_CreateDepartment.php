@@ -24,6 +24,48 @@ class CreateDepartment extends Migration
             $table->string(self::COL_NAME, 50);
             $table->foreign(self::COL_STATION_ID)->references(CreatePoliceStation::COL_ID)->on(CreatePoliceStation::TABLE_NAME);
         });
+
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Drug crimes",
+            "policeStation_id" => "1"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Street crime",
+            "policeStation_id" => "1"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Organized crime",
+            "policeStation_id" => "1"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Political crime",
+            "policeStation_id" => "1"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Victimless crime",
+            "policeStation_id" => "1"
+        ]);
+
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Drug crimes",
+            "policeStation_id" => "2"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Street crime",
+            "policeStation_id" => "2"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Organized crime",
+            "policeStation_id" => "2"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Political crime",
+            "policeStation_id" => "2"
+        ]);
+        DB::table(self::TABLE_NAME)->insert([
+            "name" => "Victimless crime",
+            "policeStation_id" => "2"
+        ]);
     }
 
     /**
