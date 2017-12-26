@@ -12,7 +12,7 @@ namespace App\Http;
 interface IPoliceAgentHandler
 {
 	public function getPoliceAgentDetail($id, $type);
-	public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd);
+	public function addPoliceAgent($name, $username, $address, $dob, $department, $type);
 	public function modifyRolePoliceAgent($policeAgent_id, $role);
 	public function deletePoliceAgent($id);
 	public function modifyPoliceAgent($id);

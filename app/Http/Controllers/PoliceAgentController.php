@@ -53,7 +53,6 @@ class PoliceAgentController extends Controller
             }
         }
 
-
         return view('police_agent.index')
             ->with([
                 'items'=> $details,
@@ -63,6 +62,7 @@ class PoliceAgentController extends Controller
  
     }
     
+
     public function addPoliceMemberIndex(Request $request){
         $places = $this->policeAgent_handler->getDepartmentStationList();
         return view('police_agent.add')->with([
@@ -71,38 +71,23 @@ class PoliceAgentController extends Controller
     }
 
     
-    public function getPoliceAgentDetail(Request $request){
-        if($request == null)
-            return redirect()->back()->with('message', "Failed to get detail");
-
-        $policeAgent_id = $request->input("policeAgent_id");
-        $policeAgent = $this->policeAgent_handler->getPoliceAgentDetail($policeAgent_id);
-
-        if($policeAgent == null)
-            return redirect()->back()->with('message', "Failed to get PoliceAgent");
-
-       /* return view('police_agent.detail')
-            ->with([
-                'policeAgent' => $policeAgent,
-            ]);
-        */
-    }
 
     public function addPoliceAgent(CreatePoliceAgentRequest $request){
-        $department_id = $request->input('department_id');
-        $name = $request->input('name',"name");
-        $surname = $request->input('surname',"surname");
-        $address = $request->input('address',"address");
-        $date = $request->input('date',"date");
-        $usr = $request->input('usr',"usr");
-        $pwd = $request->input('pwd',"pwd");
+        $surname = $request->input('surname');
+        $name = $request->input('name');
+        $address = $request->input('address');
+        $dob = $request->input('date_of_birth');
+        $department = $request->input('department');
+        $type = $request->input('type');
 
-        $policeAgent = $this->policeAgent_Handler->addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd);
+        $personAdded = $this->policeAgent_handler->addPoliceAgent($name, $surname, $address, $dob, $department, $type);
 
-        if($policeAgent == NULL)
-            return "failure to add police agent";
-
-        return $policeAgent;
+        if($personAdded == null)
+            return redirect()->back()->with('message', "Failed to add Agent");
+        else{
+            echo "Added case successfully";
+            return self::getPoliceMemberIndex($request);
+        }
     }
 
     public function setOfficer(Request $request){

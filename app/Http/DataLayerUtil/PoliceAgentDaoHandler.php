@@ -121,8 +121,7 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
         return $detail;
     }
 
-    public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd, $role){
-        $department = $this->departmentModel->find($department_id);
+    public function addPoliceAgent($name, $surname, $address, $dob, $department, $type){
         if($department == NULL)
             return NULL;
 
@@ -130,38 +129,58 @@ class PoliceAgentDaoHandler implements IPoliceAgentDaoHandler
             PersonModel::COL_SURNAME => $surname,
             PersonModel::COL_NAME => $name,
             PersonModel::COL_ADD => $address,
-            PersonModel::COL_DOB => $date
+            PersonModel::COL_DOB => $dob
         ]);
         $person->save();
 
+        $username = $name.'.'.$surname;
+        $password = 'password';
+
         $policeAgent = new PoliceAgentModel([
             "policeAgent_id" => $person[PersonModel::COL_ID],
-            "username" => $usr,
-            "password" => $pwd,
-            "department_id" => $department_id,
+            "username" => $username,
+            "password" => $password,
+            "department_id" => $department,
             "policeStation_id" => 1,
             "rolePolice_id" => NULL
         ]);
         $policeAgent->save();
 
-        /*
+
         $rolePolice = new RolePoliceModel([
             RolePoliceModel::COL_POLID => $policeAgent[PoliceAgentModel::COL_ID]
         ]);
-        $rolePolice->save()
-        */
-        $role = self::makeRoleLink($policeAgent["policeAgent_id"]);
-        $role->policeAgent()->associate($policeAgent);
+        $rolePolice->save();
 
-        $policeAgent["rolePolice_id"] = $role["rolePolice_id"];
-        $polceAgent->save();
-
-
-        $police_link_department = self::makeDepartmentLink($policeAgent["policeAgent_id"], $department_id);
-        $police_link_department->department()->associate($department);
-        $police_link_department->save();
-        $policeAgent->PoliceAgentLink()->associate($police_link_department);
-        $policeAgent->save();
+        switch ($type) {
+            case 0:
+                $roleAssign = new OfficerModel([
+                    'officer_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                ]);
+                break;
+            
+            case 1:
+                $roleAssign = new CrimeSceneInvestigatorModel([
+                    'crimeSceneInvestigator_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                ]);
+                break;
+            case 2:
+                $roleAssign = new DetectiveModel([
+                    'detective_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                ]);
+                break;
+            case 3:
+                $roleAssign = new HeadOfDepartmentModel([
+                    'headOfDepartment_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                ]);
+                break;
+            case 4:
+                $roleAssign = new ChiefOfficerModel([
+                    'chiefOfficer_id_id' =>$rolePolice[RolePoliceModel::COL_ID]
+                ]);
+                break;
+        }
+        $roleAssign->save();
 
         return $policeAgent;
     }

@@ -68,9 +68,8 @@ class PoliceAgentHandler implements IPoliceAgentHandler
         return $policeAgent;
     }
 
-    public function addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd)
-    {
-        return $this->policeAgentDaoHandler->addPoliceAgent($department_id,$name, $surname, $address, $date, $usr, $pwd);
+    public function addPoliceAgent($name, $surname, $address, $dob, $department, $type){
+        return $this->policeAgentDaoHandler->addPoliceAgent($name, $surname, $address, $dob, $department, $type);
     }
 
     public function modifyRolePoliceAgent($policeAgent_id, $role)
