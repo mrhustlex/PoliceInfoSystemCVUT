@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Hash;
 
 class CreatePoliceAgent extends Migration
 {
@@ -28,7 +29,7 @@ class CreatePoliceAgent extends Migration
             $table->foreign(self::COL_ID)->references("person_id")->on("Person");
 
             $table->string(self::COL_USERNAME,20)->unique();
-            $table->string(self::COL_PASSWORD,20);
+            $table->string(self::COL_PASSWORD);
            
             $table->integer(self::COL_POLSTAID)->unsigned();
             $table->foreign(self::COL_POLSTAID)->references("policeStation_id")->on("policeStation");
@@ -41,8 +42,8 @@ class CreatePoliceAgent extends Migration
 
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 1,
-            "username" => "Never",
-            "password" => "foobar",
+            "username" => "admin",
+            "password" => Hash::make("admin"),
             "department_id" => 1,
             "rolePolice_id" => NULL,
             "policeStation_id" => 1
@@ -51,7 +52,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 2,
             "username" => "Gonna",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 2,
             "rolePolice_id" => NULL,
             "policeStation_id" => 1
@@ -60,7 +61,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 3,
             "username" => "Give",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 3,
             "rolePolice_id" => NULL,
             "policeStation_id" => 1
@@ -69,7 +70,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 4,
             "username" => "YouUP",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 4,
             "rolePolice_id" => NULL,
             "policeStation_id" => 1
@@ -78,7 +79,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 5,
             "username" => "n3VER",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 5,
             "rolePolice_id" => NULL,
             "policeStation_id" => 1
@@ -87,7 +88,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 6,
             "username" => "g0NNA",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 6,
             "rolePolice_id" => NULL,
             "policeStation_id" => 2
@@ -96,7 +97,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 7,
             "username" => "letYou",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 7,
             "rolePolice_id" => NULL,
             "policeStation_id" => 2
@@ -105,7 +106,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 8,
             "username" => "downNever",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 8,
             "rolePolice_id" => NULL,
             "policeStation_id" => 2
@@ -114,7 +115,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 9,
             "username" => "gonnaRun",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 9,
             "rolePolice_id" => NULL,
             "policeStation_id" => 2
@@ -123,7 +124,7 @@ class CreatePoliceAgent extends Migration
         DB::table(self::TABLE_NAME)->insert([
             "policeAgent_id" => 10,
             "username" => "around",
-            "password" => "foobar",
+            "password" => Hash::make("foobar"),
             "department_id" => 10,
             "rolePolice_id" => NULL,
             "policeStation_id" => 2

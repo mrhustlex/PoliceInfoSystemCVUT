@@ -90,7 +90,7 @@ class PoliceAgentHandler implements IPoliceAgentHandler
      */
     public function modifyRolePoliceAgent($policeAgent_id, $role)
     {
-        switch ($type){
+        switch ($role){
             case self::TYPE_OFFICER:
                 return $this->policeAgentDaoHandler->setOfficer($policeAgent_id);
                 break;

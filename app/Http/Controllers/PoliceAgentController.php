@@ -6,6 +6,7 @@ use App\Http\Requests\CreatePoliceAgentRequest;
 use App\Model\PoliceAgentModel;
 use Illuminate\Http\Request;
 use CreatePoliceAgent;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Implements the presentation layer for the management of the Police Agents
@@ -89,7 +90,7 @@ class PoliceAgentController extends Controller
         $address = $request->input('address');
         $dob = $request->input('date_of_birth');
         $username = $request->input('username');
-        $password = $request->input('password');
+        $password = Hash::make($request->input('password'));
         $department = $request->input('department');
         $type = $request->input('type');
         $personAdded = $this->policeAgent_handler->addPoliceAgent($name, $surname, $address, $dob, $username, $password, $department, $type);
