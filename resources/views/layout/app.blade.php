@@ -38,12 +38,15 @@
 <body>
 @if(Auth::check())
     <a href="/logout">Logout</a>
-@else
-    <a href="/login">Login</a>
 
-@endif
+
 <section style="padding-left: 2vw;color: #5e5e5e;">
     @yield('content')
+    @else
+        <a href="/login">Login</a>
+    @endif
+
+
 </section>
 </body>
 <footer style="background: white;height: 10vh; position: relative;">
