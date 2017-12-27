@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-use RolePoliceModel;
 use CreateRolePolice;
 use CreateCrimeSceneInvestigator;
 use Illuminate\Database\Eloquent\Model;

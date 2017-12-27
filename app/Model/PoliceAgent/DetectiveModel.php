@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Model;
-
-use RolePoliceModel;
 use CreateRolePolice;
 use CreateDetective;
 use Illuminate\Database\Eloquent\Model;

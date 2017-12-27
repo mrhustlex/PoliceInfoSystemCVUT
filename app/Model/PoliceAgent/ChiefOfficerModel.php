@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Model;
-use RolePoliceModel;
 use CreateRolePolice;
 use CreateChiefOfficer;
 

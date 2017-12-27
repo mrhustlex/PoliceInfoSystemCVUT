@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use App\PoliceAgentToDepartmentModel;
-use RolePoliceModel;
 use CreatePoliceAgent;
 use CreateRolePolice;
 use CreatePersonTable;
