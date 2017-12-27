@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+//use Auth;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -43,16 +45,43 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'user_name';
+        return 'username';
     }
 
-    public function login(Request $request)
+    protected function validateLogin(Request $request)
     {
-        $user_name = $request->input('email');
-        $pw = Hash::make($request->input('password'));
-        Auth::loginUsingId(1);
-
+        $this->validate($request, [
+            $this->username() => 'required',
+            'password' => 'required',
+            // new rules here
+        ]);
     }
 
+     public function login(Request $request)
+     {
+         // $user_name = $request->input('username');
+         // $pw = Hash::make($request->input('password'));
+         $credentials = [
+                'username' => $request->input('username'),
+                'password' => $request->input('password'),
+            ];
+
+            // Dump data
+//             dd($credentials);
+
+            if (Auth::attempt($credentials)) {
+//                return redirect()->route('dashboard');
+                if(Auth::check())
+                   echo "loginSUccess";
+                return redirect("/");
+            }else
+            echo "not loginSUccess  ";
+     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::to('login');
+    }
 
 }

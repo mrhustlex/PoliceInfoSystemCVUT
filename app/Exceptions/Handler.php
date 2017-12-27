@@ -53,7 +53,8 @@ class Handler extends ExceptionHandler
 //        {
 //            Log::error('errors.'.$exception->getStatusCode()." occurs");
 //        }
+        return redirect()->guest('login');
 
-        return parent::render($request, $exception);
+//        return parent::render($request, $exception);
     }
 }

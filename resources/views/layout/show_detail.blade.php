@@ -1,3 +1,7 @@
+@if(Auth::check())
+    <a href="/logout">Logout</a>
+@else
+    <a href="/login">Login</a>
 @section("table")
 @if($column != null)
     <table class="table table-striped" style="padding:2% 2% 0 0;">

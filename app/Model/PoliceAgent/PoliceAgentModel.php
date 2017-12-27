@@ -8,11 +8,12 @@ use CreatePoliceAgent;
 use CreateRolePolice;
 use CreatePersonTable;
 use App\Model\DepartmentModel;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 
-class PoliceAgentModel extends Model
+class PoliceAgentModel extends Model implements AuthContract
 {
+      // use Illuminate\Contracts\Auth\Authenticatable;
     const TABLE_NAME = "policeAgent";
     const COL_ID = "policeAgent_id";
     const COL_USERNAME = "username";
@@ -21,7 +22,7 @@ class PoliceAgentModel extends Model
     const COL_ROLPOLID = "rolePolice_id";
     const COL_POLSTAID = "policeStation_id";
 
-    
+
     protected $table = self::TABLE_NAME;
     protected $primaryKey = self::COL_ID;
     public $incrementing = false;
@@ -51,4 +52,24 @@ class PoliceAgentModel extends Model
     {
         return $this->belongsTo(PersonModel::class, "person_id", "person_id");
     }
+
+    public function getAuthIdentifierName(){
+        return self::COL_ID;
+    }
+    public function getAuthIdentifier(){
+        return $this->policeAgent_id;
+    }
+    public function getAuthPassword(){
+        return $this->password;
+    }
+    public function getRememberToken(){
+        return $this->primaryKey;
+    }
+    public function setRememberToken($value){
+        return $this->primaryKey;
+    }
+    public function getRememberTokenName(){
+        return self::COL_USERNAME;
+    }
+
 }
